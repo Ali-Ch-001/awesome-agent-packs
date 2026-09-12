@@ -34,7 +34,7 @@ export async function projectSkillToPlatform(
         ? path.join(os.homedir(), ".claude", "CLAUDE.md")
         : path.join(projectRoot, "CLAUDE.md");
 
-      updateClaudeMd(claudeMdPath, item);
+      updateClaudeMd(claudeMdPath, item, isGlobal);
 
       return {
         platformId,
@@ -52,6 +52,9 @@ export async function projectSkillToPlatform(
       }
 
       const mdcPath = path.join(cursorRulesDir, `${skillId}.mdc`);
+      // Strip any existing YAML frontmatter from item.content to prevent corrupting Cursor's parser
+      const cleanContent = item.content.replace(/^---[\s\S]*?---\s*/, "").trim();
+
       const frontmatter = [
         "---",
         `description: "${item.name.replace(/"/g, '\\"')}"`,
@@ -61,7 +64,7 @@ export async function projectSkillToPlatform(
         "",
         `# ${item.name}`,
         "",
-        item.content,
+        cleanContent,
       ].join("\n");
 
       fs.writeFileSync(mdcPath, frontmatter, "utf-8");
@@ -211,7 +214,7 @@ function removeSymlinkOrDir(targetPath: string) {
   }
 }
 
-export function updateClaudeMd(claudeMdPath: string, item: RegistryItem) {
+export function updateClaudeMd(claudeMdPath: string, item: RegistryItem, isGlobal: boolean = true) {
   let content = "";
   if (fs.existsSync(claudeMdPath)) {
     content = fs.readFileSync(claudeMdPath, "utf-8");
@@ -220,14 +223,22 @@ export function updateClaudeMd(claudeMdPath: string, item: RegistryItem) {
     if (!fs.existsSync(parent)) fs.mkdirSync(parent, { recursive: true });
   }
 
-  const row = `| \`/${item.id}\` | ${item.tier.toUpperCase()} | **${item.name}** | ${item.invariants.slice(0, 2).join("; ")} |`;
+  // Format triggers with short and full names (e.g. `/pack-apple-fluid`, `/apple-fluid`)
+  const shortId = item.id.replace(/^(pack-|hub-)/, "");
+  const triggerList = shortId !== item.id
+    ? [`/${item.id}`, `/${shortId}`]
+    : [`/${item.id}`];
+  const triggersCol = triggerList.map((t) => `\`${t}\``).join(", ");
+
+  const row = `| ${triggersCol} | ${item.tier.toUpperCase()} | **${item.name}** | ${item.invariants.slice(0, 2).join("; ")} |`;
+  const skillsPathRef = isGlobal ? "~/.claude/skills/<id>/SKILL.md" : ".claude/skills/<id>/SKILL.md";
 
   if (!content.includes(CLAUDE_BLOCK_START)) {
     const block = [
       "",
       CLAUDE_BLOCK_START,
       "## Active AgentPacks Directives",
-      "When the user invokes triggers below or works on related tasks, adhere strictly to the rules in `.claude/skills/<id>/SKILL.md`:",
+      `When the user invokes triggers below or works on related tasks, adhere strictly to the rules in \`${skillsPathRef}\`:`,
       "",
       "| Trigger | Tier | Skill / Pack | Key Invariants |",
       "| :--- | :--- | :--- | :--- |",
@@ -245,7 +256,7 @@ export function updateClaudeMd(claudeMdPath: string, item: RegistryItem) {
       const after = content.slice(endIndex + CLAUDE_BLOCK_END.length);
 
       const lines = blockContent.split("\n");
-      const filteredLines = lines.filter((l) => !l.includes(`\`/${item.id}\``));
+      const filteredLines = lines.filter((l) => !l.includes(`\`/${item.id}\``) && !l.includes(`\`/${shortId}\``));
       filteredLines.push(row);
 
       const updatedBlock = `${CLAUDE_BLOCK_START}${filteredLines.join("\n")}${CLAUDE_BLOCK_END}`;
@@ -268,10 +279,11 @@ export function removeClaudeMdEntry(claudeMdPath: string, skillId: string): bool
   const after = content.slice(endIndex + CLAUDE_BLOCK_END.length);
 
   const lines = blockContent.split("\n");
-  const hadEntry = lines.some((l) => l.includes(`\`/${skillId}\``));
+  const shortId = skillId.replace(/^(pack-|hub-)/, "");
+  const hadEntry = lines.some((l) => l.includes(`\`/${skillId}\``) || l.includes(`\`/${shortId}\``));
   if (!hadEntry) return false;
 
-  const filteredLines = lines.filter((l) => !l.includes(`\`/${skillId}\``));
+  const filteredLines = lines.filter((l) => !l.includes(`\`/${skillId}\``) && !l.includes(`\`/${shortId}\``));
   const remainingRows = filteredLines.filter((l) => l.startsWith("| `"));
 
   if (remainingRows.length === 0) {
