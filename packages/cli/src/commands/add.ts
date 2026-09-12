@@ -18,7 +18,7 @@ export async function addCommand(
 
   if (!item) {
     p.cancel(`Skill or Pack "${packName}" not found in verified registry.`);
-    console.log(`\nRun ${picocolors.cyan("npx agent-packs search")} to view available packs.\n`);
+    console.log(`\nRun ${picocolors.cyan("npx awesome-agent-packs search")} to view available packs.\n`);
     process.exit(1);
   }
 

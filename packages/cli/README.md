@@ -1,14 +1,14 @@
-# agent-packs ⚡️
+# awesome-agent-packs ⚡️
 ### The Universal Package Manager for Pre-Harmonized AI Agent Skills & MCP Servers
 
-[![npm version](https://img.shields.io/npm/v/agent-packs.svg?style=flat-square&color=black)](https://www.npmjs.com/package/agent-packs)
+[![npm version](https://img.shields.io/npm/v/awesome-agent-packs.svg?style=flat-square&color=black)](https://www.npmjs.com/package/awesome-agent-packs)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
 
 > **"Homebrew / npm, but for Claude Code, OpenCode, Cursor, and Windsurf."**  
 > Install battle-tested, conflict-free domain intelligence with a single zero-dependency command.
 
 ```bash
-npx agent-packs add apple-fluid
+npx awesome-agent-packs add apple-fluid
 ```
 
 ---
@@ -26,19 +26,19 @@ npx agent-packs add apple-fluid
 
 ```bash
 # Add Apple fluid motion interfaces
-npx agent-packs add apple-fluid
+npx awesome-agent-packs add apple-fluid
 
 # Add Awwwards-tier landing page engineering
-npx agent-packs add landing-page
+npx awesome-agent-packs add landing-page
 
 # Add Next.js 15 & React 19 performance architecture
-npx agent-packs add nextjs-perf
+npx awesome-agent-packs add nextjs-perf
 
 # Inspect your prompt context budget
-npx agent-packs budget
+npx awesome-agent-packs budget
 
 # Check for conflicting directives
-npx agent-packs lint
+npx awesome-agent-packs lint
 ```
 
 For full documentation and catalog, visit [GitHub Repository](https://github.com/Ali-Ch-001/awesome-agent-packs).

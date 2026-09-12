@@ -29,5 +29,5 @@ export async function searchCommand(query?: string) {
     console.log(`    Trigger: ${picocolors.dim("/" + item.id)}\n`);
   }
 
-  p.outro(picocolors.green(`Run ${picocolors.bold("npx agent-packs add <name>")} to install.`));
+  p.outro(picocolors.green(`Run ${picocolors.bold("npx awesome-agent-packs add <name>")} to install.`));
 }

@@ -20,7 +20,7 @@ export async function listCommand(options: { verbose?: boolean; json?: boolean }
       return;
     }
     p.note("No supported agent environments currently detected.");
-    p.outro(picocolors.yellow("Run `npx agent-packs doctor` to check your environment."));
+    p.outro(picocolors.yellow("Run `npx awesome-agent-packs doctor` to check your environment."));
     return;
   }
 
@@ -115,7 +115,7 @@ export async function listCommand(options: { verbose?: boolean; json?: boolean }
   }
 
   if (seenSkills.size === 0) {
-    p.note("No skills currently installed.\nInstall your first pack via `npx agent-packs add apple-fluid`.");
+    p.note("No skills currently installed.\nInstall your first pack via `npx awesome-agent-packs add apple-fluid`.");
     p.outro(picocolors.cyan("AgentPacks ready."));
     return;
   }

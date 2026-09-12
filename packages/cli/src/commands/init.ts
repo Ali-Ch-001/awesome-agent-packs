@@ -40,8 +40,8 @@ export async function initCommand() {
   p.log.success(`Initialized ${picocolors.bold(picocolors.green("agentpack.lock.json"))}`);
 
   console.log(`\nNext steps:`);
-  console.log(`  1. Run ${picocolors.cyan("npx agent-packs sync")} to enforce baseline hubs`);
-  console.log(`  2. Run ${picocolors.cyan("npx agent-packs add apple-fluid")} to install your first workflow pack\n`);
+  console.log(`  1. Run ${picocolors.cyan("npx awesome-agent-packs sync")} to enforce baseline hubs`);
+  console.log(`  2. Run ${picocolors.cyan("npx awesome-agent-packs add apple-fluid")} to install your first workflow pack\n`);
 
   p.outro(picocolors.green("AgentPacks workspace successfully initialized!"));
 }

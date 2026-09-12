@@ -1,14 +1,14 @@
 # AgentPacks ⚡️
 ### The Universal Package Manager for Pre-Harmonized AI Agent Skills & MCP Servers
 
-[![npm version](https://img.shields.io/npm/v/agent-packs.svg?style=flat-square&color=black)](https://www.npmjs.com/package/agent-packs)
+[![npm version](https://img.shields.io/npm/v/awesome-agent-packs.svg?style=flat-square&color=black)](https://www.npmjs.com/package/awesome-agent-packs)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
 
 > **"Homebrew / npm, but for Claude Code, OpenCode, Cursor, and Windsurf."**  
 > Install battle-tested, conflict-free domain intelligence with a single zero-dependency command.
 
 ```bash
-npx agent-packs add apple-fluid
+npx awesome-agent-packs add apple-fluid
 ```
 
 ---
@@ -48,14 +48,14 @@ AgentPacks organizes intelligence into **8 Master Domain Hubs** and **6 Workflow
 
 | Command | Category | Active Capabilities Loaded | Directive Footprint | Replaces Raw Stack |
 | :--- | :--- | :--- | :--- | :--- |
-| `npx agent-packs add hub-design` | **Master UI/UX** | Apple HIG + Concentric Radii + Anti-Slop Palette + Tabular Numerals | **~2,840 Tok** | Governance |
-| `npx agent-packs add hub-motion` | **Physics Motion** | Critically Damped Springs + Sub-300ms Durations + Framer / GSAP | **~2,910 Tok** | Governance |
-| `npx agent-packs add hub-web` | **Next.js & React** | App Router + RSC Leaf Boundaries + Waterfall-Free Fetching | **~2,750 Tok** | Governance |
-| `npx agent-packs add hub-mobile` | **React Native & Expo** | FlashList 120fps + Reanimated UI Worklets + Apple HIG Primitives | **~3,050 Tok** | Governance |
-| `npx agent-packs add apple-fluid` | **Strike Team** | Touch-down deflection (`scale(0.97)`) + Drag Sheets + Spring Physics | **~512 Tok** | **~12,410 Tok** |
-| `npx agent-packs add landing-page` | **Strike Team** | Awwwards Bento Grids + Concentric Double-Bezels + Layout Variance | **~599 Tok** | **~13,800 Tok** |
-| `npx agent-packs add cloud-deploy` | **Strike Team** | Multi-Stage Rootless Docker + Sub-3m GitHub Actions + Terraform | **~450 Tok** | **~14,100 Tok** |
-| `npx agent-packs add nextjs-perf` | **Strike Team** | RSC Streaming + Bundle Optimization + Compound Components | **~475 Tok** | **~13,200 Tok** |
+| `npx awesome-agent-packs add hub-design` | **Master UI/UX** | Apple HIG + Concentric Radii + Anti-Slop Palette + Tabular Numerals | **~2,840 Tok** | Governance |
+| `npx awesome-agent-packs add hub-motion` | **Physics Motion** | Critically Damped Springs + Sub-300ms Durations + Framer / GSAP | **~2,910 Tok** | Governance |
+| `npx awesome-agent-packs add hub-web` | **Next.js & React** | App Router + RSC Leaf Boundaries + Waterfall-Free Fetching | **~2,750 Tok** | Governance |
+| `npx awesome-agent-packs add hub-mobile` | **React Native & Expo** | FlashList 120fps + Reanimated UI Worklets + Apple HIG Primitives | **~3,050 Tok** | Governance |
+| `npx awesome-agent-packs add apple-fluid` | **Strike Team** | Touch-down deflection (`scale(0.97)`) + Drag Sheets + Spring Physics | **~512 Tok** | **~12,410 Tok** |
+| `npx awesome-agent-packs add landing-page` | **Strike Team** | Awwwards Bento Grids + Concentric Double-Bezels + Layout Variance | **~599 Tok** | **~13,800 Tok** |
+| `npx awesome-agent-packs add cloud-deploy` | **Strike Team** | Multi-Stage Rootless Docker + Sub-3m GitHub Actions + Terraform | **~450 Tok** | **~14,100 Tok** |
+| `npx awesome-agent-packs add nextjs-perf` | **Strike Team** | RSC Streaming + Bundle Optimization + Compound Components | **~475 Tok** | **~13,200 Tok** |
 
 ---
 
@@ -64,16 +64,16 @@ AgentPacks organizes intelligence into **8 Master Domain Hubs** and **6 Workflow
 ### 1. Install Curated Workflow Strike Teams
 ```bash
 # Add Apple-grade fluid touch interfaces
-npx agent-packs add apple-fluid
+npx awesome-agent-packs add apple-fluid
 
 # Add Awwwards-tier landing page design engineering
-npx agent-packs add landing-page
+npx awesome-agent-packs add landing-page
 
 # Add high-performance Next.js 15 & React 19 architecture
-npx agent-packs add nextjs-perf
+npx awesome-agent-packs add nextjs-perf
 
 # Add cloud DevOps & CI/CD deployment automation
-npx agent-packs add cloud-deploy
+npx awesome-agent-packs add cloud-deploy
 ```
 
 ### 2. Auto-Detect Multi-Platform Setup
@@ -86,7 +86,7 @@ AgentPacks automatically inspects your machine and creates atomic projections fo
 
 ### 3. Check for Prompt Inconsistencies
 ```bash
-npx agent-packs lint
+npx awesome-agent-packs lint
 ```
 ```text
 ✔ Scanned 14 active skills across 3 agent environments.
@@ -96,12 +96,12 @@ npx agent-packs lint
     Issue:  minimalist-ui bans ambient shadows, whereas high-end-visual-design enforces double-bezel glow.
     Fix:    Load '/hub-design' to dynamically pick surface styles per product context.
 
-💡 Tip: Run npx agent-packs lint --fix to automatically install harmonizing hubs.
+💡 Tip: Run npx awesome-agent-packs lint --fix to automatically install harmonizing hubs.
 ```
 
 ### 4. Inspect Token Budget (Deterministic BPE Profiler)
 ```bash
-npx agent-packs budget
+npx awesome-agent-packs budget
 ```
 ```text
 Context Consumption Analysis:
@@ -205,7 +205,7 @@ Keep your engineering team's AI coding rules, internal APIs, and design tokens s
 
 ```bash
 # Sync company design tokens, internal APIs, and coding guidelines
-npx agent-packs sync --team=mycompany
+npx awesome-agent-packs sync --team=mycompany
 ```
 
 ### Team Configuration (`agentpack.config.json`):

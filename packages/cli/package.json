@@ -1,11 +1,12 @@
 {
-  "name": "agent-packs",
+  "name": "awesome-agent-packs",
   "version": "1.0.0",
   "description": "Universal AI Agent Skills Package Manager & Distribution Engine",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
   "bin": {
+    "awesome-agent-packs": "bin/run.js",
     "agent-packs": "bin/run.js",
     "agentpacks": "bin/run.js"
   },
