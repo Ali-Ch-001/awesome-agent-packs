@@ -69,7 +69,7 @@ export async function lintCommand(options: { fix?: boolean }) {
       await addCommand(hub, { global: true });
     }
   } else if (audit.suggestedHubs.length > 0) {
-    console.log(`\n💡 Tip: Run ${picocolors.cyan("npx agentpacks lint --fix")} to automatically install harmonizing hubs.\n`);
+    console.log(`\n💡 Tip: Run ${picocolors.cyan("npx agent-packs lint --fix")} to automatically install harmonizing hubs.\n`);
   }
 
   p.outro(picocolors.yellow("Lint completed with recommendations."));

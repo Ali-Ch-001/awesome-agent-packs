@@ -1,6 +1,6 @@
 import * as p from "@clack/prompts";
 import picocolors from "picocolors";
-import { getRegistryItem } from "@agentpacks/registry";
+import { getRegistryItem } from "../registry/index.js";
 import { installRegistryItem } from "../core/installer.js";
 import { lintActiveSkills } from "../core/linter.js";
 import { detectInstalledPlatforms } from "../core/detector.js";
@@ -16,7 +16,7 @@ export async function addCommand(
 
   if (!item) {
     p.cancel(`Skill or Pack "${packName}" not found in verified registry.`);
-    console.log(`\nRun ${picocolors.cyan("npx agentpacks search")} to view available packs.\n`);
+    console.log(`\nRun ${picocolors.cyan("npx agent-packs search")} to view available packs.\n`);
     process.exit(1);
   }
 

@@ -2,7 +2,7 @@ import * as p from "@clack/prompts";
 import picocolors from "picocolors";
 import fs from "node:fs";
 import path from "node:path";
-import { getRegistryItem } from "@agentpacks/registry";
+import { getRegistryItem } from "../registry/index.js";
 import { installRegistryItem } from "../core/installer.js";
 
 export async function syncCommand(options: { team?: string }) {

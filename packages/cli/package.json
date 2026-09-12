@@ -1,11 +1,12 @@
 {
-  "name": "agentpacks",
+  "name": "agent-packs",
   "version": "1.0.0",
   "description": "Universal AI Agent Skills Package Manager & Distribution Engine",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
   "bin": {
+    "agent-packs": "./bin/run.js",
     "agentpacks": "./bin/run.js"
   },
   "exports": {
@@ -23,6 +24,14 @@
   "publishConfig": {
     "access": "public"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ali-Ch-001/awesome-agent-packs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Ali-Ch-001/awesome-agent-packs/issues"
+  },
+  "homepage": "https://github.com/Ali-Ch-001/awesome-agent-packs#readme",
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
@@ -31,7 +40,9 @@
     "test": "node --test dist/**/*.test.js"
   },
   "keywords": [
+    "agent-packs",
     "agentpacks",
+    "awesome-agent-packs",
     "ai-agents",
     "claude-skills",
     "opencode",
@@ -42,7 +53,6 @@
   "author": "Ali Mohsin",
   "license": "MIT",
   "dependencies": {
-    "@agentpacks/registry": "workspace:*",
     "@clack/prompts": "^0.9.1",
     "commander": "^13.1.0",
     "picocolors": "^1.1.1"

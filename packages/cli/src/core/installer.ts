@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import os from "node:os";
-import type { RegistryItem } from "@agentpacks/registry";
+import type { RegistryItem } from "../registry/index.js";
 import { detectInstalledPlatforms } from "./detector.js";
 import { linkSkillToPlatform } from "./linker.js";
 import type { LinkResult } from "../types.js";

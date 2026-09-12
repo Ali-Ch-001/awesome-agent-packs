@@ -4,7 +4,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { detectInstalledPlatforms } from "../core/detector.js";
 import { calculateContextBudget } from "../core/tokenizer.js";
-import { getRegistryItem } from "@agentpacks/registry";
+import { getRegistryItem } from "../registry/index.js";
 
 const MODEL_LIMITS: Record<string, number> = {
   "claude-3-5-sonnet": 200_000,

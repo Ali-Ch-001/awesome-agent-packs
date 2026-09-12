@@ -3,7 +3,7 @@ import picocolors from "picocolors";
 import fs from "node:fs";
 import path from "node:path";
 import { detectInstalledPlatforms } from "../core/detector.js";
-import { getRegistryItem } from "@agentpacks/registry";
+import { getRegistryItem } from "../registry/index.js";
 import { estimateMarkdownTokens } from "../core/tokenizer.js";
 
 export async function listCommand(options: { verbose?: boolean }) {
@@ -14,7 +14,7 @@ export async function listCommand(options: { verbose?: boolean }) {
 
   if (detected.length === 0) {
     p.note("No supported agent environments currently detected.");
-    p.outro(picocolors.yellow("Run `npx agentpacks doctor` to check your environment."));
+    p.outro(picocolors.yellow("Run `npx agent-packs doctor` to check your environment."));
     return;
   }
 
@@ -76,7 +76,7 @@ export async function listCommand(options: { verbose?: boolean }) {
   }
 
   if (seenSkills.size === 0) {
-    p.note("No skills currently installed.\nInstall your first pack via `npx agentpacks add apple-fluid`.");
+    p.note("No skills currently installed.\nInstall your first pack via `npx agent-packs add apple-fluid`.");
     p.outro(picocolors.cyan("AgentPacks ready."));
     return;
   }

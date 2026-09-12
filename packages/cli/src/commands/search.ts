@@ -1,6 +1,6 @@
 import * as p from "@clack/prompts";
 import picocolors from "picocolors";
-import { searchRegistry } from "@agentpacks/registry";
+import { searchRegistry } from "../registry/index.js";
 
 export async function searchCommand(query?: string) {
   p.intro(picocolors.bgCyan(picocolors.black(" AgentPacks Registry Search ")));
@@ -29,5 +29,5 @@ export async function searchCommand(query?: string) {
     console.log(`    Trigger: ${picocolors.dim("/" + item.id)}\n`);
   }
 
-  p.outro(picocolors.green(`Run ${picocolors.bold("npx agentpacks add <name>")} to install.`));
+  p.outro(picocolors.green(`Run ${picocolors.bold("npx agent-packs add <name>")} to install.`));
 }
