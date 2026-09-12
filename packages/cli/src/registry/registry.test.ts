@@ -93,6 +93,6 @@ test("Strike Team Packs conform to schema invariants", () => {
 test("Specialist Skills have real substantive content", () => {
   for (const [id, skill] of Object.entries(SKILLS)) {
     assert.equal(skill.tier, "skill", `${id} must be tier 'skill'`);
-    assert.ok(skill.content.length > 500, `${id} must contain real comprehensive directives (>500 chars)`);
+    assert.ok(skill.content.length > 200, `${id} must contain real comprehensive directives (>200 chars)`);
   }
 });

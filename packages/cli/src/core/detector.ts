@@ -36,7 +36,12 @@ export function detectInstalledPlatforms(projectRoot: string = process.cwd()): A
       globalSkillsDir: path.join(home, ".cursor", "rules"),
       projectRulesDir: path.join(projectRoot, ".cursor", "rules"),
       configPath: path.join(projectRoot, ".cursorrules"),
-      isDetected: fs.existsSync(path.join(projectRoot, ".cursor")) || fs.existsSync(path.join(projectRoot, ".cursorrules")),
+      isDetected:
+        fs.existsSync(path.join(projectRoot, ".cursor")) ||
+        fs.existsSync(path.join(projectRoot, ".cursorrules")) ||
+        fs.existsSync(path.join(projectRoot, ".cursor", "rules")) ||
+        process.env.CURSOR_AGENT === "1" ||
+        Boolean(process.env.CURSOR_VERSION),
     },
     {
       id: "windsurf",

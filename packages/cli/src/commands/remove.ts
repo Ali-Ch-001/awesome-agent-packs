@@ -40,13 +40,30 @@ export async function removeCommand(skillName: string, options: { global?: boole
     }
   }
 
+  // Ensure workspace-scoped Cursor rules are pruned even if Cursor wasn't detected globally
+  const projectRoot = process.cwd();
+  for (const id of candidateIds) {
+    const cursorMdc = path.join(projectRoot, ".cursor", "rules", `${id}.mdc`);
+    if (fs.existsSync(cursorMdc)) {
+      try {
+        fs.unlinkSync(cursorMdc);
+        p.log.success(`Removed from ${picocolors.bold("Cursor AI")}: ${picocolors.dim(cursorMdc)}`);
+        removedCount++;
+      } catch (err: any) {
+        p.log.warn(`Warning removing Cursor rule ${cursorMdc}: ${err.message}`);
+      }
+    }
+  }
+
   // Remove from local cache
   for (const id of candidateIds) {
     const localCache = path.join(getLocalStoreDir(), id);
     if (fs.existsSync(localCache)) {
       try {
         fs.rmSync(localCache, { recursive: true, force: true });
-      } catch {}
+      } catch (err: any) {
+        p.log.warn(`Warning clearing local cache for ${id}: ${err.message}`);
+      }
     }
   }
 

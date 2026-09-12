@@ -36,7 +36,9 @@ export function readLockfile(projectRoot: string = process.cwd()): AgentPackLock
   if (fs.existsSync(filePath)) {
     try {
       return JSON.parse(fs.readFileSync(filePath, "utf-8"));
-    } catch {}
+    } catch (err: any) {
+      console.warn(`[AgentPacks] Warning: Failed to parse ${filePath} (${err.message}). Using fresh lockfile schema.`);
+    }
   }
 
   return {

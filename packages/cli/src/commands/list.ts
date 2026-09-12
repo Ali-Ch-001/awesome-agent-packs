@@ -55,7 +55,9 @@ export async function listCommand(options: { verbose?: boolean; json?: boolean }
           try {
             const content = fs.readFileSync(skillMd, "utf-8");
             tokens = estimateMarkdownTokens(content);
-          } catch {}
+          } catch (err: any) {
+            console.warn(`[AgentPacks] Notice: could not read ${skillMd}: ${err.message}`);
+          }
         }
 
         const regItem = getRegistryItem(entry);
@@ -83,7 +85,11 @@ export async function listCommand(options: { verbose?: boolean; json?: boolean }
           seenSkills.get(entry)!.platforms.push(pl.name);
         }
       }
-    } catch {}
+    } catch (err: any) {
+      if (err.code !== "ENOENT") {
+        console.warn(`[AgentPacks] Notice reading ${pl.name} skills: ${err.message}`);
+      }
+    }
   }
 
   let totalTokens = 0;

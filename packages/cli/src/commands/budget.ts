@@ -55,7 +55,11 @@ export async function budgetCommand(options: { model?: string }) {
         const skillMdPath = path.join(skillPath, "SKILL.md");
         let content = "";
         if (fs.existsSync(skillMdPath)) {
-          content = fs.readFileSync(skillMdPath, "utf-8");
+          try {
+            content = fs.readFileSync(skillMdPath, "utf-8");
+          } catch (err: any) {
+            console.warn(`[AgentPacks] Notice: could not read ${skillMdPath}: ${err.message}`);
+          }
         }
 
         let tier: "hub" | "pack" | "skill" = "skill";
@@ -71,7 +75,11 @@ export async function budgetCommand(options: { model?: string }) {
 
         skillEntries.push({ id: item, content, tier });
       }
-    } catch {}
+    } catch (err: any) {
+      if (err.code !== "ENOENT") {
+        console.warn(`[AgentPacks] Notice: error reading ${pl.name}: ${err.message}`);
+      }
+    }
   }
 
   const report = calculateContextBudget(skillEntries, contextLimit);
