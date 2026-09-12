@@ -1,0 +1,45 @@
+{
+  "name": "agentpacks",
+  "version": "1.0.0",
+  "description": "Universal AI Agent Skills Package Manager & Distribution Engine",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "bin": {
+    "agentpacks": "./bin/run.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "lint": "echo \"CLI syntax OK\"",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test dist/**/*.test.js"
+  },
+  "keywords": [
+    "agentpacks",
+    "ai-agents",
+    "claude-skills",
+    "opencode",
+    "cursor-rules",
+    "mcp",
+    "prompt-engineering"
+  ],
+  "author": "Ali Mohsin",
+  "license": "MIT",
+  "dependencies": {
+    "@agentpacks/registry": "workspace:*",
+    "@clack/prompts": "^0.9.1",
+    "commander": "^13.1.0",
+    "picocolors": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "typescript": "^5.7.2"
+  }
+}

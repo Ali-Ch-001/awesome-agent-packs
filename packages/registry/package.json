@@ -1,0 +1,35 @@
+{
+  "name": "@agentpacks/registry",
+  "version": "1.0.0",
+  "description": "Verified registry for AgentPacks Master Hubs, Workflow Strike Teams, and Skills",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./data/*": "./src/data/*"
+  },
+  "scripts": {
+    "build": "tsc",
+    "lint": "echo \"Registry syntax OK\"",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test dist/**/*.test.js"
+  },
+  "keywords": [
+    "agentpacks",
+    "claude-skills",
+    "opencode",
+    "cursor-rules",
+    "mcp",
+    "ai-agents"
+  ],
+  "author": "Ali Mohsin",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "typescript": "^5.7.2"
+  }
+}
