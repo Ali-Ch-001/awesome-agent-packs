@@ -54,7 +54,7 @@
   "license": "MIT",
   "dependencies": {
     "@clack/prompts": "^0.9.1",
-    "commander": "^13.1.0",
+    "commander": "^15.0.0",
     "js-tiktoken": "^1.0.21",
     "picocolors": "^1.1.1"
   },
