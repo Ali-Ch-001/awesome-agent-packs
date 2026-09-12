@@ -1,5 +1,6 @@
 import { Command } from "commander";
 import picocolors from "picocolors";
+import { initCommand } from "./commands/init.js";
 import { addCommand } from "./commands/add.js";
 import { removeCommand } from "./commands/remove.js";
 import { listCommand } from "./commands/list.js";
@@ -18,8 +19,8 @@ program
 
 program
   .command("init")
-  .description("Initialize an agentpack.config.json workspace policy in the current repository")
-  .action(() => syncCommand({}));
+  .description("Initialize agentpack.config.json and lockfile in the current repository")
+  .action(initCommand);
 
 program
   .command("add")
@@ -45,6 +46,7 @@ program
   .alias("ls")
   .description("List installed agent skills, active hubs, and current token footprint")
   .option("-v, --verbose", "Display full paths and escalation metadata")
+  .option("--json", "Output machine-readable JSON for CI integration")
   .action(listCommand);
 
 program

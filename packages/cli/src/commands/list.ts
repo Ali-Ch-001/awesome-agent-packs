@@ -6,19 +6,25 @@ import { detectInstalledPlatforms } from "../core/detector.js";
 import { getRegistryItem } from "../registry/index.js";
 import { estimateMarkdownTokens } from "../core/tokenizer.js";
 
-export async function listCommand(options: { verbose?: boolean }) {
-  p.intro(picocolors.bgCyan(picocolors.black(" Installed Agent Skills & Hubs ")));
+export async function listCommand(options: { verbose?: boolean; json?: boolean }) {
+  if (!options.json) {
+    p.intro(picocolors.bgCyan(picocolors.black(" Installed Agent Skills & Hubs ")));
+  }
 
   const platforms = detectInstalledPlatforms();
   const detected = platforms.filter((p) => p.isDetected);
 
   if (detected.length === 0) {
+    if (options.json) {
+      console.log(JSON.stringify({ error: "No agent platforms detected", skills: [] }, null, 2));
+      return;
+    }
     p.note("No supported agent environments currently detected.");
     p.outro(picocolors.yellow("Run `npx agent-packs doctor` to check your environment."));
     return;
   }
 
-  const seenSkills = new Map<string, { path: string; platforms: string[]; tokens: number; tier: string }>();
+  const seenSkills = new Map<string, { path: string; platforms: string[]; tokens: number; tier: string; replacesTokens?: number }>();
 
   for (const pl of detected) {
     if (!fs.existsSync(pl.globalSkillsDir)) continue;
@@ -43,6 +49,7 @@ export async function listCommand(options: { verbose?: boolean }) {
 
         let tokens = 0;
         let tier = "skill";
+        let replacesTokens: number | undefined;
 
         if (fs.existsSync(skillMd)) {
           try {
@@ -55,6 +62,9 @@ export async function listCommand(options: { verbose?: boolean }) {
         if (regItem) {
           tokens = regItem.tokenEstimate.cl100k_base;
           tier = regItem.tier;
+          if ("replacesTokens" in regItem) {
+            replacesTokens = (regItem as any).replacesTokens;
+          }
         } else if (entry.startsWith("hub-")) {
           tier = "hub";
         } else if (entry.startsWith("pack-")) {
@@ -67,12 +77,35 @@ export async function listCommand(options: { verbose?: boolean }) {
             platforms: [pl.name],
             tokens,
             tier,
+            replacesTokens,
           });
         } else {
           seenSkills.get(entry)!.platforms.push(pl.name);
         }
       }
     } catch {}
+  }
+
+  let totalTokens = 0;
+  for (const meta of seenSkills.values()) {
+    totalTokens += meta.tokens;
+  }
+
+  if (options.json) {
+    const listJson = {
+      totalSkills: seenSkills.size,
+      totalTokens,
+      skills: Array.from(seenSkills.entries()).map(([id, meta]) => ({
+        id,
+        tier: meta.tier,
+        tokens: meta.tokens,
+        replacesTokens: meta.replacesTokens,
+        platforms: meta.platforms,
+        path: meta.path,
+      })),
+    };
+    console.log(JSON.stringify(listJson, null, 2));
+    return;
   }
 
   if (seenSkills.size === 0) {
@@ -83,10 +116,7 @@ export async function listCommand(options: { verbose?: boolean }) {
 
   console.log(`\n${picocolors.bold("Active Skills Inventory (" + seenSkills.size + " total):")}\n`);
 
-  let totalTokens = 0;
-
   for (const [id, meta] of seenSkills.entries()) {
-    totalTokens += meta.tokens;
     const tierBadge =
       meta.tier === "hub"
         ? picocolors.bgBlue(picocolors.black(" MASTER HUB "))
@@ -95,9 +125,12 @@ export async function listCommand(options: { verbose?: boolean }) {
         : picocolors.bgWhite(picocolors.black(" SPECIALIST "));
 
     const tokenFmt = picocolors.yellow(`~${meta.tokens.toLocaleString()} tok`);
+    const savingsFmt = meta.replacesTokens
+      ? picocolors.green(` [Replaces ~${meta.replacesTokens.toLocaleString()} tok raw stack]`)
+      : "";
     const platformsFmt = picocolors.dim(`[${meta.platforms.join(", ")}]`);
 
-    console.log(`  ${tierBadge} ${picocolors.bold(id)}  ${tokenFmt}  ${platformsFmt}`);
+    console.log(`  ${tierBadge} ${picocolors.bold(id)}  ${tokenFmt}${savingsFmt}  ${platformsFmt}`);
     if (options.verbose) {
       console.log(`    Location: ${picocolors.dim(meta.path)}`);
     }

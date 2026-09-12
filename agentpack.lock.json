@@ -1,0 +1,23 @@
+{
+  "$schema": "https://agentpacks.dev/schema/v2/lock.json",
+  "lockfileVersion": 1,
+  "engineVersion": "1.0.0",
+  "updatedAt": "2026-09-12T21:15:30.986Z",
+  "installed": {
+    "pack-apple-fluid": {
+      "type": "pack",
+      "version": "1.0.0",
+      "checksum": "d02e54de1b28ade142110e3dbf1ba362ec247d652e51b37b81cd06a997583108",
+      "tokens": {
+        "cl100k_base": 512,
+        "o200k_base": 490
+      },
+      "projectedPlatforms": [
+        "claude",
+        "opencode",
+        "agents-shared"
+      ],
+      "installedAt": "2026-09-12T21:15:30.987Z"
+    }
+  }
+}

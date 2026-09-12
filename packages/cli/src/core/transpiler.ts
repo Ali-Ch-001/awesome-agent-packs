@@ -233,15 +233,19 @@ export function updateClaudeMd(claudeMdPath: string, item: RegistryItem, isGloba
   const row = `| ${triggersCol} | ${item.tier.toUpperCase()} | **${item.name}** | ${item.invariants.slice(0, 2).join("; ")} |`;
   const skillsPathRef = isGlobal ? "~/.claude/skills/<id>/SKILL.md" : ".claude/skills/<id>/SKILL.md";
 
+  const headerLines = [
+    "## Active AgentPacks Directives",
+    `When the user invokes triggers below or works on related tasks, adhere strictly to the rules in \`${skillsPathRef}\`:`,
+    "",
+    "| Trigger | Tier | Skill / Pack | Key Invariants |",
+    "| :--- | :--- | :--- | :--- |",
+  ];
+
   if (!content.includes(CLAUDE_BLOCK_START)) {
     const block = [
       "",
       CLAUDE_BLOCK_START,
-      "## Active AgentPacks Directives",
-      `When the user invokes triggers below or works on related tasks, adhere strictly to the rules in \`${skillsPathRef}\`:`,
-      "",
-      "| Trigger | Tier | Skill / Pack | Key Invariants |",
-      "| :--- | :--- | :--- | :--- |",
+      ...headerLines,
       row,
       CLAUDE_BLOCK_END,
       "",
@@ -255,12 +259,21 @@ export function updateClaudeMd(claudeMdPath: string, item: RegistryItem, isGloba
       const blockContent = content.slice(startIndex + CLAUDE_BLOCK_START.length, endIndex);
       const after = content.slice(endIndex + CLAUDE_BLOCK_END.length);
 
-      const lines = blockContent.split("\n");
-      const filteredLines = lines.filter((l) => !l.includes(`\`/${item.id}\``) && !l.includes(`\`/${shortId}\``));
-      filteredLines.push(row);
+      const lines = blockContent
+        .split("\n")
+        .map((l) => l.trim())
+        .filter((l) => l.startsWith("| `") && !l.includes(`\`/${item.id}\``) && !l.includes(`\`/${shortId}\``));
 
-      const updatedBlock = `${CLAUDE_BLOCK_START}${filteredLines.join("\n")}${CLAUDE_BLOCK_END}`;
-      fs.writeFileSync(claudeMdPath, (before + updatedBlock + after).trim() + "\n", "utf-8");
+      const allRows = [...lines, row];
+
+      const updatedBlock = [
+        CLAUDE_BLOCK_START,
+        ...headerLines,
+        ...allRows,
+        CLAUDE_BLOCK_END,
+      ].join("\n");
+
+      fs.writeFileSync(claudeMdPath, (before.trimEnd() + "\n\n" + updatedBlock + "\n\n" + after.trimStart()).trim() + "\n", "utf-8");
     }
   }
 }
@@ -288,11 +301,25 @@ export function removeClaudeMdEntry(claudeMdPath: string, skillId: string): bool
 
   if (remainingRows.length === 0) {
     // No more skills in CLAUDE.md block, clean up block completely
-    const remainingContent = (before.trim() + "\n\n" + after.trim()).trim();
+    const remainingContent = (before.trimEnd() + "\n\n" + after.trimStart()).trim();
     fs.writeFileSync(claudeMdPath, remainingContent ? remainingContent + "\n" : "", "utf-8");
   } else {
-    const updatedBlock = `${CLAUDE_BLOCK_START}${filteredLines.join("\n")}${CLAUDE_BLOCK_END}`;
-    fs.writeFileSync(claudeMdPath, (before + updatedBlock + after).trim() + "\n", "utf-8");
+    const skillsPathRef = claudeMdPath.includes(os.homedir()) ? "~/.claude/skills/<id>/SKILL.md" : ".claude/skills/<id>/SKILL.md";
+    const headerLines = [
+      "## Active AgentPacks Directives",
+      `When the user invokes triggers below or works on related tasks, adhere strictly to the rules in \`${skillsPathRef}\`:`,
+      "",
+      "| Trigger | Tier | Skill / Pack | Key Invariants |",
+      "| :--- | :--- | :--- | :--- |",
+    ];
+
+    const updatedBlock = [
+      CLAUDE_BLOCK_START,
+      ...headerLines,
+      ...remainingRows,
+      CLAUDE_BLOCK_END,
+    ].join("\n");
+    fs.writeFileSync(claudeMdPath, (before.trimEnd() + "\n\n" + updatedBlock + "\n\n" + after.trimStart()).trim() + "\n", "utf-8");
   }
   return true;
 }

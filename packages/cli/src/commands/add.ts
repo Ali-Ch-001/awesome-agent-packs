@@ -4,6 +4,8 @@ import { getRegistryItem } from "../registry/index.js";
 import { installRegistryItem } from "../core/installer.js";
 import { lintActiveSkills } from "../core/linter.js";
 import { detectInstalledPlatforms } from "../core/detector.js";
+import { scanPromptSecurity } from "../core/security.js";
+import { updateLockfile } from "../core/lockfile.js";
 import fs from "node:fs";
 
 export async function addCommand(
@@ -17,6 +19,16 @@ export async function addCommand(
   if (!item) {
     p.cancel(`Skill or Pack "${packName}" not found in verified registry.`);
     console.log(`\nRun ${picocolors.cyan("npx agent-packs search")} to view available packs.\n`);
+    process.exit(1);
+  }
+
+  // Static prompt security taint scan
+  const securityReport = scanPromptSecurity(item.content);
+  if (!securityReport.passed) {
+    p.cancel(picocolors.red("Security check failed! Blocked unsafe prompt instructions:"));
+    for (const issue of securityReport.issues) {
+      console.log(`  • [${issue.severity.toUpperCase()}] ${issue.reason} (${picocolors.dim(issue.matchedPattern)})`);
+    }
     process.exit(1);
   }
 
@@ -49,6 +61,12 @@ export async function addCommand(
       p.log.error(`${picocolors.red("✖ Failed")} ${picocolors.bold(link.platformName)}: ${link.error}`);
     }
   }
+
+  // Record into deterministic project lockfile
+  const activePlatforms = installResult.links
+    .filter((l) => l.status === "created" || l.status === "already_linked")
+    .map((l) => l.platformId);
+  updateLockfile(process.cwd(), item, activePlatforms);
 
   // Scan for conflicts across installed platforms
   const platforms = detectInstalledPlatforms();

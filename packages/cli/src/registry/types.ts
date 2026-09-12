@@ -31,6 +31,7 @@ export interface PackManifest {
   tier: "pack";
   targetSprint: string;
   tokenEstimate: SkillTokenProfile;
+  replacesTokens?: number;
   memberSkills: string[];
   triggers: string[];
   invariants: string[];

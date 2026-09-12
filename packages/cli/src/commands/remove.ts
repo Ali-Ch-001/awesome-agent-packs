@@ -5,6 +5,7 @@ import path from "node:path";
 import { detectInstalledPlatforms } from "../core/detector.js";
 import { getLocalStoreDir } from "../core/installer.js";
 import { unprojectSkillFromPlatform } from "../core/transpiler.js";
+import { removeLockfileEntry } from "../core/lockfile.js";
 
 export async function removeCommand(skillName: string, options: { global?: boolean }) {
   p.intro(picocolors.bgRed(picocolors.white(" AgentPacks Remove ")));
@@ -48,6 +49,9 @@ export async function removeCommand(skillName: string, options: { global?: boole
       } catch {}
     }
   }
+
+  // Update lockfile
+  removeLockfileEntry(process.cwd(), skillName);
 
   if (removedCount > 0) {
     p.outro(picocolors.green(`Successfully removed ${picocolors.bold(skillName)} across ${removedCount} location(s).`));

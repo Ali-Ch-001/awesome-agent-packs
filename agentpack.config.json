@@ -1,0 +1,13 @@
+{
+  "$schema": "https://agentpacks.dev/schema/v2/config.json",
+  "team": "Awesome_skiils_one_command_teams",
+  "enforcedHubs": [
+    "hub-design",
+    "hub-web",
+    "hub-cloud"
+  ],
+  "tokenBudgetCap": 20000,
+  "prohibitedSkills": [
+    "minimalist-ui"
+  ]
+}

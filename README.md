@@ -48,16 +48,16 @@ With AgentPacks Tiered Hybrid Architecture (2,800 Tokens / 1.4% Window):
 
 AgentPacks organizes intelligence into **8 Master Domain Hubs** and **6 Workflow Strike Teams**:
 
-| Command | Category | Active Capabilities Loaded | Context Cost |
-| :--- | :--- | :--- | :--- |
-| `npx agent-packs add hub-design` | **Master UI/UX** | Apple HIG + Concentric Radii + Anti-Slop Palette + Tabular Numerals | **~2,800 Tok** |
-| `npx agent-packs add hub-motion` | **Physics Motion** | Critically Damped Springs + Sub-300ms Durations + Framer / GSAP | **~2,900 Tok** |
-| `npx agent-packs add hub-web` | **Next.js & React** | App Router + RSC Leaf Boundaries + Waterfall-Free Fetching | **~2,750 Tok** |
-| `npx agent-packs add hub-mobile` | **React Native & Expo** | FlashList 120fps + Reanimated UI Worklets + Apple HIG Primitives | **~3,050 Tok** |
-| `npx agent-packs add apple-fluid` | **Strike Team** | Touch-down feedback (`scale(0.97)`) + Drag Sheets + Spring Physics | **~12,410 Tok**|
-| `npx agent-packs add landing-page` | **Strike Team** | Awwwards Bento Grids + Concentric Double-Bezels + Layout Variance | **~13,800 Tok**|
-| `npx agent-packs add cloud-deploy` | **Strike Team** | Multi-Stage Rootless Docker + Sub-3m GitHub Actions + Terraform | **~14,100 Tok**|
-| `npx agent-packs add nextjs-perf` | **Strike Team** | RSC Streaming + Bundle Optimization + Compound Components | **~13,200 Tok**|
+| Command | Category | Active Capabilities Loaded | Directive Footprint | Replaces Raw Stack |
+| :--- | :--- | :--- | :--- | :--- |
+| `npx agent-packs add hub-design` | **Master UI/UX** | Apple HIG + Concentric Radii + Anti-Slop Palette + Tabular Numerals | **~2,840 Tok** | Governance |
+| `npx agent-packs add hub-motion` | **Physics Motion** | Critically Damped Springs + Sub-300ms Durations + Framer / GSAP | **~2,910 Tok** | Governance |
+| `npx agent-packs add hub-web` | **Next.js & React** | App Router + RSC Leaf Boundaries + Waterfall-Free Fetching | **~2,750 Tok** | Governance |
+| `npx agent-packs add hub-mobile` | **React Native & Expo** | FlashList 120fps + Reanimated UI Worklets + Apple HIG Primitives | **~3,050 Tok** | Governance |
+| `npx agent-packs add apple-fluid` | **Strike Team** | Touch-down deflection (`scale(0.97)`) + Drag Sheets + Spring Physics | **~512 Tok** | **~12,410 Tok** |
+| `npx agent-packs add landing-page` | **Strike Team** | Awwwards Bento Grids + Concentric Double-Bezels + Layout Variance | **~599 Tok** | **~13,800 Tok** |
+| `npx agent-packs add cloud-deploy` | **Strike Team** | Multi-Stage Rootless Docker + Sub-3m GitHub Actions + Terraform | **~450 Tok** | **~14,100 Tok** |
+| `npx agent-packs add nextjs-perf` | **Strike Team** | RSC Streaming + Bundle Optimization + Compound Components | **~475 Tok** | **~13,200 Tok** |
 
 ---
 
@@ -79,13 +79,12 @@ npx agent-packs add cloud-deploy
 ```
 
 ### 2. Auto-Detect Multi-Platform Setup
-AgentPacks automatically inspects your machine and creates atomic symlinks for your tools:
-* 🤖 **Claude Code** (`~/.claude/skills/`)
+AgentPacks automatically inspects your machine and creates atomic projections for your tools:
+* 🤖 **Claude Code** (`CLAUDE.md` table reconciliation & `~/.claude/skills/`)
 * ⚡ **OpenCode** (`~/.config/opencode/skills/`)
 * 🛠 **Agent Standard** (`~/.agents/skills/`)
-* 🎯 **Cursor** (`.cursor/rules/`)
-* 🌊 **Windsurf** (`.windsurfrules`)
-* 💻 **Aider** (`.aider.conf.yml`)
+* 🎯 **Cursor** (`.cursor/rules/*.mdc` with valid frontmatter)
+* 🌊 **Windsurf** (`.windsurfrules` delimited blocks)
 
 ### 3. Check for Prompt Inconsistencies
 ```bash
@@ -102,20 +101,17 @@ npx agent-packs lint
 💡 Tip: Run npx agent-packs lint --fix to automatically install harmonizing hubs.
 ```
 
-### 4. Inspect Token Budget Heatmap
+### 4. Inspect Token Budget (Deterministic BPE Profiler)
 ```bash
 npx agent-packs budget
 ```
 ```text
-┌──────────────────────────────────────┬──────────────┬───────────────┐
-│ Active Skill / Hub                  │ Tokens (Est) │ Context Share │
-├──────────────────────────────────────┼──────────────┼───────────────┤
-│ hub-design                           │        2,840 │          1.4% │
-│ pack-apple-fluid                     │       12,410 │          6.2% │
-├──────────────────────────────────────┼──────────────┼───────────────┤
-│ TOTAL SYSTEM PROMPT FOOTPRINT        │       15,250 │   7.6% [SAFE] │
-└──────────────────────────────────────┴──────────────┴───────────────┘
-✔ Healthy Context Budget: Less than 10% of window consumed by system instructions.
+Context Consumption Analysis:
+  • Turn-0 Dispatch Overhead: ~630 tokens (0.32% of window) [SAFE]
+    (Permanent system prompt cost from CLAUDE.md tables & agent tool declarations)
+  • Peak Single-Invocation Load: ~3,120 tokens (1.56% of window) [hub-3d]
+    (Max tokens loaded into reasoning thread upon trigger activation)
+✔ Healthy Runtime Architecture: Skills load on-demand, preserving 98%+ context window for reasoning.
 ```
 
 ---

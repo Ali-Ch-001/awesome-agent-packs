@@ -32,9 +32,9 @@ Every submission to AgentPacks must adhere to our **Tiered Hybrid Architecture**
    ```
 
 2. Add your manifest and content:
-   - For Hubs: `packages/registry/src/data/hubs.ts`
-   - For Packs: `packages/registry/src/data/packs.ts`
-   - For Skills: `packages/registry/src/data/skills.ts`
+   - For Hubs: `packages/cli/src/registry/data/hubs.ts`
+   - For Packs: `packages/cli/src/registry/data/packs.ts`
+   - For Skills: `packages/cli/src/registry/data/skills.ts`
 
 3. Verify type-checking and build:
    ```bash

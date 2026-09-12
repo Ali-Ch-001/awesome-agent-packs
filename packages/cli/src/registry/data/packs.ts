@@ -8,7 +8,8 @@ export const PACKS: Record<string, PackManifest> = {
     version: "1.0.0",
     tier: "pack",
     targetSprint: "Physical UI, drawers, bottom sheets, tactile buttons, momentum gestures, zero-latency feedback",
-    tokenEstimate: { cl100k_base: 12410, o200k_base: 11850 },
+    tokenEstimate: { cl100k_base: 512, o200k_base: 490 },
+    replacesTokens: 12410,
     triggers: [
       "pack-apple-fluid",
       "/pack-apple-fluid",
@@ -79,7 +80,8 @@ When implementing fluid UI interactions:
     version: "1.0.0",
     tier: "pack",
     targetSprint: "Marketing sites, bento grids, hero sections, and high-conversion editorial pages",
-    tokenEstimate: { cl100k_base: 13800, o200k_base: 13150 },
+    tokenEstimate: { cl100k_base: 599, o200k_base: 570 },
+    replacesTokens: 13800,
     triggers: [
       "pack-landing-page",
       "/pack-landing-page",
@@ -154,7 +156,8 @@ When creating high-impact marketing pages:
     version: "1.0.0",
     tier: "pack",
     targetSprint: "Full-stack Next.js features, streaming UI, Server Actions, bundle reduction, compound components",
-    tokenEstimate: { cl100k_base: 13200, o200k_base: 12590 },
+    tokenEstimate: { cl100k_base: 475, o200k_base: 450 },
+    replacesTokens: 13200,
     triggers: [
       "pack-nextjs-perf",
       "/pack-nextjs-perf",
@@ -225,7 +228,8 @@ When architecting React/Next.js features:
     version: "1.0.0",
     tier: "pack",
     targetSprint: "Production mobile screens, 60fps lists, Reanimated v3 gestures, NativeWind v4 components, Apple HIG",
-    tokenEstimate: { cl100k_base: 12900, o200k_base: 12300 },
+    tokenEstimate: { cl100k_base: 429, o200k_base: 410 },
+    replacesTokens: 12900,
     triggers: [
       "pack-expo-mobile",
       "/pack-expo-mobile",
@@ -295,7 +299,8 @@ When developing React Native/Expo applications:
     version: "1.0.0",
     tier: "pack",
     targetSprint: "GitHub Actions CI/CD workflows, Dockerfiles, Terraform modules, multi-cloud topologies",
-    tokenEstimate: { cl100k_base: 14100, o200k_base: 13420 },
+    tokenEstimate: { cl100k_base: 450, o200k_base: 430 },
+    replacesTokens: 14100,
     triggers: [
       "pack-cloud-deploy",
       "/pack-cloud-deploy",
@@ -369,7 +374,8 @@ When shipping infrastructure and CI/CD automation:
     version: "1.0.0",
     tier: "pack",
     targetSprint: "Programmatic product demo videos, marketing launch reels, animated captions, promo video clips",
-    tokenEstimate: { cl100k_base: 13500, o200k_base: 12850 },
+    tokenEstimate: { cl100k_base: 412, o200k_base: 390 },
+    replacesTokens: 13500,
     triggers: [
       "pack-saas-video",
       "/pack-saas-video",
