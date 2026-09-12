@@ -10,7 +10,18 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./data/*": "./src/data/*"
+    "./data/*": {
+      "types": "./dist/data/*.d.ts",
+      "import": "./dist/data/*.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "build": "tsc",
