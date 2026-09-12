@@ -60,7 +60,7 @@ export async function doctorCommand(options: { fix?: boolean } = {}) {
               } catch {}
             }
           } else {
-            console.log(`     ${picocolors.dim("Tip: Run `agentpacks doctor --fix` to prune broken symlinks")}`);
+            console.log(`     ${picocolors.dim("Tip: Run `agent-packs doctor --fix` to prune broken symlinks")}`);
           }
         }
       } catch (err: any) {

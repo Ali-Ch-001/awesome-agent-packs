@@ -17,6 +17,11 @@ program
   .version("1.0.0");
 
 program
+  .command("init")
+  .description("Initialize an agentpack.config.json workspace policy in the current repository")
+  .action(() => syncCommand({}));
+
+program
   .command("add")
   .description("Install curated packs, master hubs, or specialist skills across detected agent platforms")
   .argument("<packName>", "Name of pack, hub, or skill (e.g., apple-fluid, landing-page, hub-design)")
