@@ -26,8 +26,19 @@ export async function listCommand(options: { verbose?: boolean }) {
     try {
       const entries = fs.readdirSync(pl.globalSkillsDir);
       for (const entry of entries) {
-        if (entry.startsWith(".")) continue;
+        if (entry.startsWith(".") || entry.includes(".backup-") || entry.endsWith(".md") || entry.endsWith(".json")) {
+          continue;
+        }
+
         const entryPath = path.join(pl.globalSkillsDir, entry);
+        try {
+          const stat = fs.statSync(entryPath);
+          if (!stat.isDirectory()) continue;
+        } catch {
+          // Skip broken symlinks from active valid listing
+          continue;
+        }
+
         const skillMd = path.join(entryPath, "SKILL.md");
 
         let tokens = 0;

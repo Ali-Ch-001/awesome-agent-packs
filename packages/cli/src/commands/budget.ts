@@ -32,13 +32,30 @@ export async function budgetCommand(options: { model?: string }) {
     try {
       const items = fs.readdirSync(pl.globalSkillsDir);
       for (const item of items) {
-        if (item.startsWith(".") || seen.has(item)) continue;
-        seen.add(item);
+        if (
+          item.startsWith(".") ||
+          item.includes(".backup-") ||
+          item.endsWith(".md") ||
+          item.endsWith(".json") ||
+          seen.has(item)
+        ) {
+          continue;
+        }
 
-        const skillPath = path.join(pl.globalSkillsDir, item, "SKILL.md");
+        const skillPath = path.join(pl.globalSkillsDir, item);
+        try {
+          const stat = fs.statSync(skillPath);
+          if (!stat.isDirectory()) continue;
+        } catch {
+          // Skip broken symlinks
+          continue;
+        }
+
+        seen.add(item);
+        const skillMdPath = path.join(skillPath, "SKILL.md");
         let content = "";
-        if (fs.existsSync(skillPath)) {
-          content = fs.readFileSync(skillPath, "utf-8");
+        if (fs.existsSync(skillMdPath)) {
+          content = fs.readFileSync(skillMdPath, "utf-8");
         }
 
         let tier: "hub" | "pack" | "skill" = "skill";

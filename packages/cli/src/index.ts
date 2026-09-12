@@ -69,6 +69,7 @@ program
 program
   .command("doctor")
   .description("Validate agent environment directories, symlinks, and write permissions")
+  .option("--fix", "Automatically prune broken symlinks in agent directories")
   .action(doctorCommand);
 
 program.parse(process.argv);

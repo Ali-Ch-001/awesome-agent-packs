@@ -1,6 +1,7 @@
 import * as p from "@clack/prompts";
 import picocolors from "picocolors";
 import fs from "node:fs";
+import path from "node:path";
 import { detectInstalledPlatforms } from "../core/detector.js";
 import { lintActiveSkills } from "../core/linter.js";
 import { addCommand } from "./add.js";
@@ -18,7 +19,24 @@ export async function lintCommand(options: { fix?: boolean }) {
       try {
         const entries = fs.readdirSync(pl.globalSkillsDir);
         for (const e of entries) {
-          if (!e.startsWith(".")) installedSkillNames.add(e);
+          if (
+            e.startsWith(".") ||
+            e.includes(".backup-") ||
+            e.endsWith(".md") ||
+            e.endsWith(".json")
+          ) {
+            continue;
+          }
+
+          const fullPath = path.join(pl.globalSkillsDir, e);
+          try {
+            const stat = fs.statSync(fullPath);
+            if (!stat.isDirectory()) continue;
+          } catch {
+            continue;
+          }
+
+          installedSkillNames.add(e);
         }
       } catch {}
     }

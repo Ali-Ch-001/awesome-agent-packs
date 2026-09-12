@@ -2,7 +2,8 @@ import * as p from "@clack/prompts";
 import picocolors from "picocolors";
 import fs from "node:fs";
 import path from "node:path";
-import { addCommand } from "./add.js";
+import { getRegistryItem } from "@agentpacks/registry";
+import { installRegistryItem } from "../core/installer.js";
 
 export async function syncCommand(options: { team?: string }) {
   p.intro(picocolors.bgBlue(picocolors.white(" Enterprise Team Sync ")));
@@ -26,9 +27,18 @@ export async function syncCommand(options: { team?: string }) {
   await new Promise((resolve) => setTimeout(resolve, 600));
   s.stop(`Synchronized organization baseline rules.`);
 
-  console.log(`\nEnforcing ${enforcedHubs.length} required team Master Hubs:`);
+  console.log(`\nEnforcing ${enforcedHubs.length} required team Master Hubs:\n`);
   for (const hub of enforcedHubs) {
-    await addCommand(hub, { global: true });
+    const item = getRegistryItem(hub);
+    if (!item) {
+      p.log.warn(`Hub "${hub}" not found in verified registry. Skipping.`);
+      continue;
+    }
+    const res = await installRegistryItem(item, { global: true });
+    const successLinks = res.links.filter((l) => l.status === "created" || l.status === "already_linked");
+    p.log.success(
+      `${picocolors.green("✔ Enforced")} ${picocolors.bold(item.name)} (${successLinks.length} platforms active)`
+    );
   }
 
   p.outro(picocolors.green(`Team sync completed successfully for ${teamName || "current workspace"}.`));

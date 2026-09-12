@@ -5,7 +5,7 @@ import path from "node:path";
 import { detectInstalledPlatforms } from "../core/detector.js";
 import { getLocalStoreDir } from "../core/installer.js";
 
-export async function doctorCommand() {
+export async function doctorCommand(options: { fix?: boolean } = {}) {
   p.intro(picocolors.bgMagenta(picocolors.white(" AgentPacks System Diagnostics ")));
 
   console.log(`\n${picocolors.bold("1. Local AgentPacks Cache Store:")}`);
@@ -32,21 +32,36 @@ export async function doctorCommand() {
         const entries = fs.readdirSync(pl.globalSkillsDir);
         let validSymlinks = 0;
         let brokenSymlinks = 0;
+        const brokenNames: string[] = [];
 
         for (const e of entries) {
           const full = path.join(pl.globalSkillsDir, e);
           try {
             const stat = fs.lstatSync(full);
             if (stat.isSymbolicLink()) {
-              if (fs.existsSync(full)) validSymlinks++;
-              else brokenSymlinks++;
+              if (fs.existsSync(full)) {
+                validSymlinks++;
+              } else {
+                brokenSymlinks++;
+                brokenNames.push(e);
+              }
             }
           } catch {}
         }
 
         console.log(`     Installed:  ${entries.length} items (${validSymlinks} symlinks, ${brokenSymlinks} broken)`);
         if (brokenSymlinks > 0) {
-          console.log(`     ${picocolors.red("⚠ Warning: Detected broken symlinks in this directory")}`);
+          console.log(`     ${picocolors.yellow("⚠ Broken symlinks: " + brokenNames.join(", "))}`);
+          if (options.fix) {
+            for (const name of brokenNames) {
+              try {
+                fs.unlinkSync(path.join(pl.globalSkillsDir, name));
+                console.log(`     ${picocolors.green("✔ Pruned broken symlink: " + name)}`);
+              } catch {}
+            }
+          } else {
+            console.log(`     ${picocolors.dim("Tip: Run `agentpacks doctor --fix` to prune broken symlinks")}`);
+          }
         }
       } catch (err: any) {
         console.log(`     ${picocolors.red("Error reading directory: " + err.message)}`);

@@ -18,25 +18,36 @@ export const CATALOG: RegistryCatalog = {
 
 export function getRegistryItem(nameOrId: string): RegistryItem | null {
   const normalized = nameOrId.toLowerCase().trim();
-  const stripped = normalized.replace(/^(\/|pack-|hub-)/, "");
+  const noSlash = normalized.replace(/^\/+/, "");
+  const stripped = noSlash.replace(/^(pack-|hub-)/, "");
 
   // Check Hubs
   if (HUBS[normalized]) return HUBS[normalized];
+  if (HUBS[noSlash]) return HUBS[noSlash];
   if (HUBS[`hub-${stripped}`]) return HUBS[`hub-${stripped}`];
 
   // Check Packs
   if (PACKS[normalized]) return PACKS[normalized];
+  if (PACKS[noSlash]) return PACKS[noSlash];
   if (PACKS[`pack-${stripped}`]) return PACKS[`pack-${stripped}`];
 
   // Check direct alias
   for (const pack of Object.values(PACKS)) {
-    if (pack.triggers.some(t => t.toLowerCase() === normalized || t.toLowerCase() === `/${normalized}`)) {
+    if (
+      pack.triggers.some(
+        (t) =>
+          t.toLowerCase() === normalized ||
+          t.toLowerCase() === noSlash ||
+          t.toLowerCase() === `/${noSlash}`
+      )
+    ) {
       return pack;
     }
   }
 
   // Check Skills
   if (SKILLS[normalized]) return SKILLS[normalized];
+  if (SKILLS[noSlash]) return SKILLS[noSlash];
   if (SKILLS[stripped]) return SKILLS[stripped];
 
   return null;
@@ -44,7 +55,7 @@ export function getRegistryItem(nameOrId: string): RegistryItem | null {
 
 export function searchRegistry(query: string): RegistryItem[] {
   const q = query.toLowerCase().trim();
-  if (!q) return [...Object.values(HUBS), ...Object.values(PACKS)];
+  if (!q) return [...Object.values(HUBS), ...Object.values(PACKS), ...Object.values(SKILLS)];
 
   const results: RegistryItem[] = [];
 
