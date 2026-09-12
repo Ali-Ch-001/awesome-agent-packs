@@ -15,7 +15,7 @@ const program = new Command();
 program
   .name("awesome-agent-packs")
   .description("Universal AI Agent Skills Package Manager & Distribution Engine")
-  .version("1.0.1");
+  .version("1.0.2");
 
 program
   .command("init")
