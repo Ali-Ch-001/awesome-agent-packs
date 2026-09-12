@@ -13,24 +13,23 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           registry-url: 'https://registry.npmjs.org'
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
+          cache: "pnpm"
 
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile=false
 
       - name: Build Packages
-        run: pnpm build
+        run: pnpm -r run build
 
       - name: Publish to npm
-        run: pnpm -r publish --access public --no-git-checks
+        run: pnpm --filter agent-packs publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
