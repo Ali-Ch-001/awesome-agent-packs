@@ -43,9 +43,19 @@ export function lintActiveSkills(installedSkills: string[]): {
     const b = edge.skillB.toLowerCase().replace(/^(pack-|hub-)/, "");
 
     if (activeNormalized.has(a) && activeNormalized.has(b)) {
-      detectedConflicts.push(edge);
-      if (edge.autoResolveHub) {
-        suggestedHubs.add(edge.autoResolveHub);
+      // Check if the reconciling master hub is already active
+      const hubActive = Boolean(
+        edge.autoResolveHub &&
+        (activeNormalized.has(edge.autoResolveHub.toLowerCase().replace(/^(pack-|hub-)/, "")) ||
+         installedSkills.some((s) => s.toLowerCase() === edge.autoResolveHub?.toLowerCase()))
+      );
+
+      // If the hub is active, the conflict is reconciled and suppressed
+      if (!hubActive) {
+        detectedConflicts.push(edge);
+        if (edge.autoResolveHub) {
+          suggestedHubs.add(edge.autoResolveHub);
+        }
       }
     }
   }

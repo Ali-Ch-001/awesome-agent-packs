@@ -3,7 +3,7 @@ import path from "node:path";
 import os from "node:os";
 import picocolors from "picocolors";
 import type { AgentPlatform, LinkResult } from "../types.js";
-import type { RegistryItem } from "../registry/index.js";
+import { getRegistryItem, type RegistryItem } from "../registry/index.js";
 
 const CLAUDE_BLOCK_START = "<!-- AGENTPACKS:START -->";
 const CLAUDE_BLOCK_END = "<!-- AGENTPACKS:END -->";
@@ -115,6 +115,15 @@ export async function projectSkillToPlatform(
   }
 }
 
+export function pathExists(p: string): boolean {
+  try {
+    fs.lstatSync(p);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 export async function unprojectSkillFromPlatform(
   skillId: string,
   platform: AgentPlatform,
@@ -122,62 +131,96 @@ export async function unprojectSkillFromPlatform(
   projectRoot: string = process.cwd()
 ): Promise<{ removed: boolean; path?: string }> {
   try {
+    const canonicalItem = getRegistryItem(skillId);
+    const canonicalId = canonicalItem ? canonicalItem.id : skillId;
+    const strippedId = skillId.toLowerCase().replace(/^(\/|pack-|hub-)/, "");
+
+    const candidateIds = Array.from(new Set([
+      canonicalId,
+      skillId,
+      strippedId,
+      `pack-${strippedId}`,
+      `hub-${strippedId}`,
+    ]));
+
     if (platform.id === "claude") {
       const targetDir = isGlobal ? platform.globalSkillsDir : (platform.projectRulesDir || platform.globalSkillsDir);
-      const skillPath = path.join(targetDir, skillId);
       let removedDir = false;
+      let removedPath = "";
 
-      if (fs.existsSync(skillPath)) {
-        removeSymlinkOrDir(skillPath);
-        removedDir = true;
+      for (const id of candidateIds) {
+        const skillPath = path.join(targetDir, id);
+        if (pathExists(skillPath)) {
+          removeSymlinkOrDir(skillPath);
+          removedDir = true;
+          removedPath = skillPath;
+        }
       }
 
       const claudeMdPath = isGlobal
         ? path.join(os.homedir(), ".claude", "CLAUDE.md")
         : path.join(projectRoot, "CLAUDE.md");
 
-      const removedTable = removeClaudeMdEntry(claudeMdPath, skillId);
+      let removedTable = false;
+      for (const id of candidateIds) {
+        if (removeClaudeMdEntry(claudeMdPath, id)) {
+          removedTable = true;
+        }
+      }
+
       if (removedDir || removedTable) {
-        return { removed: true, path: skillPath };
+        return { removed: true, path: removedPath || claudeMdPath };
       }
       return { removed: false };
     }
 
     if (platform.id === "cursor") {
-      const mdcPath = path.join(projectRoot, ".cursor", "rules", `${skillId}.mdc`);
-      if (fs.existsSync(mdcPath)) {
-        fs.unlinkSync(mdcPath);
-        return { removed: true, path: mdcPath };
+      let removedMdc = false;
+      let removedPath = "";
+      for (const id of candidateIds) {
+        const mdcPath = path.join(projectRoot, ".cursor", "rules", `${id}.mdc`);
+        if (pathExists(mdcPath)) {
+          fs.unlinkSync(mdcPath);
+          removedMdc = true;
+          removedPath = mdcPath;
+        }
       }
-      return { removed: false };
+      return removedMdc ? { removed: true, path: removedPath } : { removed: false };
     }
 
     if (platform.id === "windsurf") {
       const windsurfRulesPath = path.join(projectRoot, ".windsurfrules");
-      if (fs.existsSync(windsurfRulesPath)) {
-        const didRemove = removeWindsurfEntry(windsurfRulesPath, skillId);
-        if (didRemove) {
-          return { removed: true, path: windsurfRulesPath };
+      let removedWindsurf = false;
+      if (pathExists(windsurfRulesPath)) {
+        for (const id of candidateIds) {
+          if (removeWindsurfEntry(windsurfRulesPath, id)) {
+            removedWindsurf = true;
+          }
         }
       }
-      return { removed: false };
+      return removedWindsurf ? { removed: true, path: windsurfRulesPath } : { removed: false };
     }
 
     const targetDir = isGlobal ? platform.globalSkillsDir : (platform.projectRulesDir || platform.globalSkillsDir);
-    const skillPath = path.join(targetDir, skillId);
-    if (fs.existsSync(skillPath)) {
-      removeSymlinkOrDir(skillPath);
-      return { removed: true, path: skillPath };
+    let removedAny = false;
+    let removedPath = "";
+    for (const id of candidateIds) {
+      const skillPath = path.join(targetDir, id);
+      if (pathExists(skillPath)) {
+        removeSymlinkOrDir(skillPath);
+        removedAny = true;
+        removedPath = skillPath;
+      }
     }
 
-    return { removed: false };
+    return removedAny ? { removed: true, path: removedPath } : { removed: false };
   } catch {
     return { removed: false };
   }
 }
 
 function setupDirectorySymlink(sourceDir: string, destPath: string, skillId: string): "created" | "already_linked" {
-  if (fs.existsSync(destPath)) {
+  if (pathExists(destPath)) {
     const lstat = fs.lstatSync(destPath);
     if (lstat.isSymbolicLink()) {
       try {

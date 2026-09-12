@@ -31,3 +31,9 @@ test("lintActiveSkills handles prefixed names cleanly", () => {
   const result = lintActiveSkills(["pack-minimalist-ui", "pack-high-end-visual-design"]);
   assert.equal(result.conflicts.length, 1);
 });
+
+test("lintActiveSkills suppresses conflict when autoResolveHub is installed", () => {
+  const result = lintActiveSkills(["minimalist-ui", "high-end-visual-design", "hub-design"]);
+  assert.equal(result.conflicts.length, 0, "Conflict should be suppressed because hub-design reconciles surface rules");
+  assert.equal(result.suggestedHubs.length, 0);
+});

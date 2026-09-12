@@ -111,3 +111,35 @@ test("Windsurf rule projection inserts and strips delimited blocks", () => {
   assert.equal(removed, true);
   assert.equal(fs.readFileSync(rulesPath, "utf-8").trim(), "");
 });
+
+test("unprojectSkillFromPlatform removes broken symlinks via pathExists and canonical IDs", async () => {
+  const skillsDir = path.join(tmpDir, "broken-symlink-test-skills");
+  fs.mkdirSync(skillsDir, { recursive: true });
+
+  const brokenTarget = path.join(tmpDir, "non-existent-source-skill-12345");
+  const destPath = path.join(skillsDir, "pack-apple-fluid");
+
+  // Create intentional broken symlink
+  fs.symlinkSync(brokenTarget, destPath, "dir");
+  assert.ok(fs.lstatSync(destPath).isSymbolicLink(), "Broken symlink created");
+  assert.equal(fs.existsSync(destPath), false, "existsSync should report false for broken symlink");
+
+  const platform = {
+    id: "opencode",
+    name: "OpenCode CLI",
+    globalSkillsDir: skillsDir,
+    projectRulesDir: skillsDir,
+    isDetected: true,
+  };
+
+  // Unproject using short alias "apple-fluid"
+  const res = await unprojectSkillFromPlatform("apple-fluid", platform, true, tmpDir);
+  assert.equal(res.removed, true, "Should remove broken symlink via canonical ID pack-apple-fluid");
+
+  let stillExists = false;
+  try {
+    fs.lstatSync(destPath);
+    stillExists = true;
+  } catch {}
+  assert.equal(stillExists, false, "Broken symlink must be unlinked completely");
+});

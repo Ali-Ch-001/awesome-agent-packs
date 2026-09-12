@@ -30,6 +30,6 @@ jobs:
         run: pnpm -r run build
 
       - name: Publish to npm
-        run: pnpm --filter agent-packs publish --access public --no-git-checks
+        run: pnpm --filter awesome-agent-packs publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
