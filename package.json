@@ -3,7 +3,7 @@
   "version": "1.0.1",
   "private": true,
   "description": "Universal AI Agent Skills Registry & Distribution Engine",
-  "author": "Ali Mohsin",
+  "author": "Ali Mohsin (https://www.ali-ch.dev)",
   "license": "MIT",
   "type": "module",
   "scripts": {

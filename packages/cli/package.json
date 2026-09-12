@@ -51,7 +51,7 @@
     "mcp",
     "prompt-engineering"
   ],
-  "author": "Ali Mohsin",
+  "author": "Ali Mohsin (https://www.ali-ch.dev)",
   "license": "MIT",
   "dependencies": {
     "@clack/prompts": "^0.9.1",

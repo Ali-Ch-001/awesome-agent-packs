@@ -20,6 +20,9 @@
 npx awesome-agent-packs add apple-fluid
 ```
 
+> 💡 **Need custom agent packs, enterprise prompts, or bespoke MCP servers?**  
+> **[Hire the author →](https://www.ali-ch.dev)**
+
 ---
 
 ```
@@ -197,6 +200,13 @@ pnpm test
 
 ---
 
+## 💼 Enterprise & Consulting
+
+Need custom agent packs, enterprise prompts, or bespoke MCP servers?  
+👉 **[Hire the author →](https://www.ali-ch.dev)**
+
+---
+
 ## 📄 License
 
-MIT © [Ali Mohsin](https://github.com/Ali-Ch-001) and Awesome AgentPacks Contributors.
+MIT © [Ali Mohsin](https://www.ali-ch.dev) and Awesome AgentPacks Contributors.

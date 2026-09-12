@@ -11,6 +11,9 @@
 npx awesome-agent-packs add apple-fluid
 ```
 
+> 💡 **Need custom agent packs, enterprise prompts, or bespoke MCP servers?**  
+> **[Hire the author →](https://www.ali-ch.dev)**
+
 ---
 
 ## ⚡ Key Features
@@ -43,6 +46,15 @@ npx awesome-agent-packs lint
 
 For full documentation and catalog, visit [GitHub Repository](https://github.com/Ali-Ch-001/awesome-agent-packs).
 
+---
+
+## 💼 Enterprise & Consulting
+
+Need custom agent packs, enterprise prompts, or bespoke MCP servers?  
+👉 **[Hire the author →](https://www.ali-ch.dev)**
+
+---
+
 ## License
 
-MIT © Ali Mohsin
+MIT © [Ali Mohsin](https://www.ali-ch.dev)
