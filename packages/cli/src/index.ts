@@ -13,9 +13,9 @@ import { searchCommand } from "./commands/search.js";
 const program = new Command();
 
 program
-  .name("agent-packs")
+  .name("awesome-agent-packs")
   .description("Universal AI Agent Skills Package Manager & Distribution Engine")
-  .version("1.0.0");
+  .version("1.0.1");
 
 program
   .command("init")

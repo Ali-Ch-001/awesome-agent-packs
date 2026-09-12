@@ -1,6 +1,6 @@
 {
   "name": "awesome-agent-packs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Universal AI Agent Skills Package Manager & Distribution Engine",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

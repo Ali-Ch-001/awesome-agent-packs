@@ -25,18 +25,15 @@ export async function removeCommand(skillName: string, options: { global?: boole
   for (const pl of platforms) {
     if (!pl.isDetected) continue;
 
-    for (const id of candidateIds) {
-      const res = await unprojectSkillFromPlatform(
-        id,
-        pl,
-        options.global !== false,
-        process.cwd()
-      );
-      if (res.removed) {
-        p.log.success(`Removed from ${picocolors.bold(pl.name)}: ${picocolors.dim(res.path || id)}`);
-        removedCount++;
-        break;
-      }
+    const res = await unprojectSkillFromPlatform(
+      skillName,
+      pl,
+      options.global !== false,
+      process.cwd()
+    );
+    if (res.removed) {
+      p.log.success(`Removed from ${picocolors.bold(pl.name)}: ${picocolors.dim(res.path || skillName)}`);
+      removedCount++;
     }
   }
 
@@ -55,14 +52,16 @@ export async function removeCommand(skillName: string, options: { global?: boole
     }
   }
 
-  // Remove from local cache
-  for (const id of candidateIds) {
-    const localCache = path.join(getLocalStoreDir(), id);
-    if (fs.existsSync(localCache)) {
-      try {
-        fs.rmSync(localCache, { recursive: true, force: true });
-      } catch (err: any) {
-        p.log.warn(`Warning clearing local cache for ${id}: ${err.message}`);
+  // Only remove from shared local cache if removing globally
+  if (options.global !== false) {
+    for (const id of candidateIds) {
+      const localCache = path.join(getLocalStoreDir(), id);
+      if (fs.existsSync(localCache)) {
+        try {
+          fs.rmSync(localCache, { recursive: true, force: true });
+        } catch (err: any) {
+          p.log.warn(`Warning clearing local cache for ${id}: ${err.message}`);
+        }
       }
     }
   }
