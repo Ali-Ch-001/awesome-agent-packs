@@ -1,15 +1,27 @@
+import { getEncoding } from "js-tiktoken";
 import type { ContextBudgetReport, SkillTokenProfile } from "../types.js";
 
+let cl100kEncoder: ReturnType<typeof getEncoding> | null = null;
+
+function getCl100kEncoder() {
+  if (!cl100kEncoder) {
+    cl100kEncoder = getEncoding("cl100k_base");
+  }
+  return cl100kEncoder;
+}
+
 /**
- * High-performance BPE estimate calibrated against cl100k_base (Claude 3.5 Sonnet / GPT-4o)
- * Standard ratio: 1 token ~= 3.75 English characters for technical markdown.
+ * Exact deterministic BPE token calculation via js-tiktoken (cl100k_base for Claude 3.5 Sonnet & GPT-4o)
  */
 export function estimateMarkdownTokens(content: string): number {
-  if (!content) return 0;
-  const clean = content.replace(/\r\n/g, "\n");
-  const words = clean.trim().split(/\s+/).filter(Boolean).length;
-  const chars = clean.length;
-  return Math.round(words * 0.75 + (chars / 4) * 0.25);
+  if (!content || !content.trim()) return 0;
+  try {
+    const encoder = getCl100kEncoder();
+    return encoder.encode(content).length;
+  } catch {
+    const words = content.trim().split(/\s+/).filter(Boolean).length;
+    return Math.round(words * 1.3);
+  }
 }
 
 export function calculateContextBudget(

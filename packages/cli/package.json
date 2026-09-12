@@ -6,8 +6,8 @@
   "types": "dist/index.d.ts",
   "type": "module",
   "bin": {
-    "agent-packs": "./bin/run.js",
-    "agentpacks": "./bin/run.js"
+    "agent-packs": "bin/run.js",
+    "agentpacks": "bin/run.js"
   },
   "exports": {
     ".": {
@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/Ali-Ch-001/awesome-agent-packs#readme",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && node -e \"require('fs').copyFileSync('src/registry/matrix.json', 'dist/registry/matrix.json')\"",
     "dev": "tsc --watch",
     "lint": "echo \"CLI syntax OK\"",
     "typecheck": "tsc --noEmit",
@@ -55,6 +55,7 @@
   "dependencies": {
     "@clack/prompts": "^0.9.1",
     "commander": "^13.1.0",
+    "js-tiktoken": "^1.0.21",
     "picocolors": "^1.1.1"
   },
   "devDependencies": {

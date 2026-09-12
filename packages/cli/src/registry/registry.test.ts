@@ -12,7 +12,7 @@ import {
 test("Registry Catalog has expected counts", () => {
   assert.equal(Object.keys(HUBS).length, 8, "Expected exactly 8 Master Hubs");
   assert.equal(Object.keys(PACKS).length, 6, "Expected exactly 6 Strike Team Packs");
-  assert.ok(Object.keys(SKILLS).length >= 8, "Expected at least 8 Specialist Skills");
+  assert.equal(Object.keys(SKILLS).length, 8, "Expected exactly 8 Specialist Skills");
   assert.equal(CATALOG.version, "1.0.0");
 });
 
@@ -60,7 +60,7 @@ test("getRegistryItem resolves various identifier formats", () => {
 
 test("searchRegistry finds relevant items", () => {
   const emptyQueryResults = searchRegistry("");
-  assert.ok(emptyQueryResults.length >= 22, "Empty query should return full catalog");
+  assert.equal(emptyQueryResults.length, 22, "Empty query should return all 22 catalog items");
 
   const motionResults = searchRegistry("motion");
   assert.ok(motionResults.length > 0);
@@ -87,5 +87,12 @@ test("Strike Team Packs conform to schema invariants", () => {
     assert.ok(pack.memberSkills.length >= 2, `${id} must unite at least 2 specialist skills`);
     assert.ok(pack.tokenEstimate.cl100k_base <= 15000, `${id} must stay within 15k token ceiling`);
     assert.ok(pack.content.length > 100, `${id} must have substantial prompt directive content`);
+  }
+});
+
+test("Specialist Skills have real substantive content", () => {
+  for (const [id, skill] of Object.entries(SKILLS)) {
+    assert.equal(skill.tier, "skill", `${id} must be tier 'skill'`);
+    assert.ok(skill.content.length > 1000, `${id} must contain real comprehensive directives (>1,000 chars)`);
   }
 });

@@ -239,7 +239,7 @@ We welcome community skill contributions! See our [Contributing Guide](CONTRIBUT
 
 ```bash
 # Clone the repository
-git clone https://github.com/agentpacks/agentpacks.git
+git clone https://github.com/Ali-Ch-001/awesome-agent-packs.git
 
 # Install dependencies and build
 pnpm install

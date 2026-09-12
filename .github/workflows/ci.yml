@@ -33,6 +33,9 @@ jobs:
       - name: Build Monorepo
         run: pnpm build
 
+      - name: Run Unit Tests
+        run: pnpm test
+
       - name: Test CLI
         run: |
           node packages/cli/bin/run.js --help

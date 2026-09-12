@@ -17,15 +17,15 @@ importers:
 
   packages/cli:
     dependencies:
-      '@agentpacks/registry':
-        specifier: workspace:*
-        version: link:../registry
       '@clack/prompts':
         specifier: ^0.9.1
         version: 0.9.1
       commander:
         specifier: ^13.1.0
         version: 13.1.0
+      js-tiktoken:
+        specifier: ^1.0.21
+        version: 1.0.21
       picocolors:
         specifier: ^1.1.1
         version: 1.1.1
@@ -57,9 +57,15 @@ packages:
   '@types/node@22.20.2':
     resolution: {integrity: sha512-xlvWf4Vs9n1PEVYwP1n4vvG07M6y8WgvJ2t0vbrWTmijsIHp1cS+uJ2kMIRdY3nHZK0nCYKrPeD171+SzF4/zw==}
 
+  base64-js@1.5.1:
+    resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
+
   commander@13.1.0:
     resolution: {integrity: sha512-/rFeCpNJQbhSZjGVwO9RFV3xPqbnERS8MmIQzCtD/zl6gpJuV/bMLuN92oG3F7d8oDEHHRrujSXNUr8fpjntKw==}
     engines: {node: '>=18'}
+
+  js-tiktoken@1.0.21:
+    resolution: {integrity: sha512-biOj/6M5qdgx5TKjDnFT1ymSpM5tbd3ylwDtrQvFQSu0Z7bBYko2dF+W/aUkXUPuk6IVpRxk/3Q2sHOzGlS36g==}
 
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
@@ -92,7 +98,13 @@ snapshots:
     dependencies:
       undici-types: 6.21.0
 
+  base64-js@1.5.1: {}
+
   commander@13.1.0: {}
+
+  js-tiktoken@1.0.21:
+    dependencies:
+      base64-js: 1.5.1
 
   picocolors@1.1.1: {}
 

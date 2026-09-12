@@ -3,7 +3,7 @@ import path from "node:path";
 import os from "node:os";
 import type { RegistryItem } from "../registry/index.js";
 import { detectInstalledPlatforms } from "./detector.js";
-import { linkSkillToPlatform } from "./linker.js";
+import { projectSkillToPlatform } from "./transpiler.js";
 import type { LinkResult } from "../types.js";
 
 export interface InstallResult {
@@ -40,7 +40,7 @@ export async function installRegistryItem(
   const metaFilePath = path.join(itemDir, "manifest.json");
   fs.writeFileSync(metaFilePath, JSON.stringify(item, null, 2), "utf-8");
 
-  // Link across platforms
+  // Project across platforms using the platform transpiler
   const allPlatforms = detectInstalledPlatforms();
   let selectedPlatforms = allPlatforms.filter((p) => p.isDetected);
 
@@ -63,11 +63,13 @@ export async function installRegistryItem(
   const linkResults: LinkResult[] = [];
 
   for (const plat of selectedPlatforms) {
-    const targetBase = options.global === false && plat.projectRulesDir
-      ? plat.projectRulesDir
-      : plat.globalSkillsDir;
-
-    const res = await linkSkillToPlatform(item.id, itemDir, targetBase, plat.id, plat.name);
+    const res = await projectSkillToPlatform(
+      item,
+      itemDir,
+      plat,
+      options.global !== false,
+      process.cwd()
+    );
     linkResults.push(res);
   }
 

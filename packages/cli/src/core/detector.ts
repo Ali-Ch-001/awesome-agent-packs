@@ -45,14 +45,6 @@ export function detectInstalledPlatforms(projectRoot: string = process.cwd()): A
       projectRulesDir: path.join(projectRoot, ".windsurfrules"),
       isDetected: fs.existsSync(path.join(projectRoot, ".windsurfrules")),
     },
-    {
-      id: "aider",
-      name: "Aider AI",
-      globalSkillsDir: path.join(home, ".aider"),
-      projectRulesDir: path.join(projectRoot, ".aider.conf.yml"),
-      configPath: path.join(projectRoot, ".aider.conf.yml"),
-      isDetected: fs.existsSync(path.join(projectRoot, ".aider.conf.yml")),
-    }
   ];
 
   return platforms;

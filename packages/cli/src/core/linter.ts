@@ -1,38 +1,31 @@
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import type { ConflictEdge } from "../types.js";
 
-export const KNOWN_CONFLICT_MATRIX: ConflictEdge[] = [
-  {
-    skillA: "minimalist-ui",
-    skillB: "high-end-visual-design",
-    topic: "Surfaces & Shadows",
-    reason: "minimalist-ui bans ambient shadows and nested gradients, whereas high-end-visual-design enforces double-bezel ambient glow and button-in-button halos.",
-    recommendation: "Load '/hub-design' to dynamically pick surface styles per product context instead of overloading conflicting directives.",
-    autoResolveHub: "hub-design",
-  },
-  {
-    skillA: "css-animations",
-    skillB: "framer-motion",
-    topic: "Animation Engine Authority",
-    reason: "Direct CSS keyframe transitions conflict with Framer Motion layoutId and imperative controls, producing conflicting inline transform style tags.",
-    recommendation: "Load '/hub-motion' to enforce Framer Motion for React layout changes and hardware CSS for micro-interactions.",
-    autoResolveHub: "hub-motion",
-  },
-  {
-    skillA: "cobejs",
-    skillB: "threejs",
-    topic: "3D Viewport Clashes",
-    reason: "Loading full Three.js WebGL scenes alongside autonomous Cobe canvas listeners risks WebGL context budget exhaustion (>16 contexts).",
-    recommendation: "Load '/hub-3d' which assigns Cobe for lightweight pseudo-spheres and Three.js for interactive models with strict context disposal.",
-    autoResolveHub: "hub-3d",
-  },
-  {
-    skillA: "nextjs-app-router-patterns",
-    skillB: "react-native-core",
-    topic: "Platform Target Contradiction",
-    reason: "Next.js Server Component directives ('use server', cookies()) break when mixed into React Native / Metro bundler skill sessions.",
-    recommendation: "Separate web tasks into '/pack-nextjs-perf' and mobile tasks into '/pack-expo-mobile'.",
-  },
-];
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+export function loadConflictMatrix(): ConflictEdge[] {
+  const candidatePaths = [
+    path.resolve(__dirname, "../registry/matrix.json"),
+    path.resolve(__dirname, "../../src/registry/matrix.json"),
+    path.resolve(__dirname, "../../registry/matrix.json"),
+  ];
+
+  for (const p of candidatePaths) {
+    if (fs.existsSync(p)) {
+      try {
+        const raw = JSON.parse(fs.readFileSync(p, "utf-8"));
+        return raw.conflicts || [];
+      } catch {}
+    }
+  }
+
+  return [];
+}
+
+export const KNOWN_CONFLICT_MATRIX: ConflictEdge[] = loadConflictMatrix();
 
 export function lintActiveSkills(installedSkills: string[]): {
   conflicts: ConflictEdge[];

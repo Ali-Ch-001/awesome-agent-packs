@@ -12,7 +12,7 @@ import { searchCommand } from "./commands/search.js";
 const program = new Command();
 
 program
-  .name("agentpacks")
+  .name("agent-packs")
   .description("Universal AI Agent Skills Package Manager & Distribution Engine")
   .version("1.0.0");
 
@@ -20,7 +20,7 @@ program
   .command("add")
   .description("Install curated packs, master hubs, or specialist skills across detected agent platforms")
   .argument("<packName>", "Name of pack, hub, or skill (e.g., apple-fluid, landing-page, hub-design)")
-  .option("-t, --target <targets...>", "Explicit targets (claude, opencode, cursor, windsurf, aider)")
+  .option("-t, --target <targets...>", "Explicit targets (claude, opencode, cursor, windsurf)")
   .option("-g, --global", "Install globally across user agent directories (default: true)", true)
   .option("--no-global", "Install locally into current workspace rules directory")
   .option("--dry-run", "Preview file links and token impact without modifying filesystem")
