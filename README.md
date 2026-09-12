@@ -1,11 +1,20 @@
-# AgentPacks ⚡️
-### The Universal Package Manager for Pre-Harmonized AI Agent Skills & MCP Servers
+# awesome-agent-packs ⚡️
 
-[![npm version](https://img.shields.io/npm/v/awesome-agent-packs.svg?style=flat-square&color=black)](https://www.npmjs.com/package/awesome-agent-packs)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
+### The Universal Package Manager for Pre-Harmonized AI Agent Skills & Rule Transpilation
+
+<p align="left">
+  <a href="https://www.npmjs.com/package/awesome-agent-packs"><img src="https://img.shields.io/npm/v/awesome-agent-packs.svg?style=flat-square&color=cb3837" alt="npm version"></a>
+  <a href="https://www.npmjs.com/package/awesome-agent-packs"><img src="https://img.shields.io/npm/dt/awesome-agent-packs.svg?style=flat-square&color=blue" alt="npm downloads"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg?style=flat-square" alt="License: MIT"></a>
+  <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-5.7-blue.svg?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript"></a>
+  <a href="https://nodejs.org/"><img src="https://img.shields.io/badge/Node.js-%3E%3D20-339933.svg?style=flat-square&logo=node.js&logoColor=white" alt="Node.js Version"></a>
+  <a href="https://github.com/Ali-Ch-001/awesome-agent-packs/stargazers"><img src="https://img.shields.io/github/stars/Ali-Ch-001/awesome-agent-packs?style=flat-square&color=yellow" alt="GitHub stars"></a>
+  <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square" alt="PRs Welcome"></a>
+</p>
 
 > **"Homebrew / npm, but for Claude Code, OpenCode, Cursor, and Windsurf."**  
-> Install battle-tested, conflict-free domain intelligence with a single zero-dependency command.
+> Install battle-tested, conflict-free domain intelligence with a single zero-dependency command.  
+> 📦 Published on npm: [`awesome-agent-packs`](https://www.npmjs.com/package/awesome-agent-packs)
 
 ```bash
 npx awesome-agent-packs add apple-fluid
@@ -25,37 +34,55 @@ npx awesome-agent-packs add apple-fluid
 
 ---
 
-## ⚡ The Problem: Skill Fragmentation & Prompt Pollution
+## ⚡ The Problem: The Agent Capability Paradox
 
-Today, managing AI agent skills feels like downloading `.zip` files from forums in 2002:
-* 📁 **Manual Folder Wrangling:** You copy-paste unvetted markdown files into `~/.claude/skills`, `~/.config/opencode/skills`, or `.cursor/rules`.
-* 💥 **Directive Clashing:** One skill tells the agent *"Use subtle borders and no shadows"*, while another says *"Double-bezel cards with ambient halos"*. The model produces broken, generic CSS.
-* 💸 **Context Window Burn:** Loading dozens of raw uncoordinated skills burns **50,000–170,000+ tokens before you even type your first prompt**. Your context window fills up, and the agent hallucinates.
+Today, developer environments suffer from **Agent Skill Drift**, **Prompt Fragmentation**, and **Context Window Pollution**:
+
+* 📁 **Manual Folder Wrangling:** Developers copy-paste unvetted markdown files into disparate directories (`~/.claude/skills`, `~/.config/opencode/skills`, or `<project>/.cursor/rules`).
+* 💥 **Directive Clashing:** One skill tells the agent *"Use subtle 1px borders and zero shadows"*, while another mandates *"Double-bezel cards with ambient glow"*. The model produces broken, generic styling.
+* 💸 **Turn-0 Context Burn:** Naively dumping dozens of raw uncoordinated skills burns **50,000–170,000+ tokens before you even type your first prompt turn**. Retrieval fidelity drops, and the agent hallucinates.
 
 ```
 Without AgentPacks (177,000+ Tokens / 88% Window Burned on System Prompt):
 [██████████████████████████████████████████████░░░░░] 88.8% CONTEXT BURN 💥
 
-With AgentPacks Tiered Hybrid Architecture (2,800 Tokens / 1.4% Window):
-[█░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]  1.4% CONTEXT COST ⚡️
+With AgentPacks Tiered Hybrid Architecture (~500 Tokens Turn-0 Baseline Overhead):
+[█░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]  0.25% CONTEXT COST ⚡️
 ```
 
 ---
 
 ## 💎 The Solution: Tiered Hybrid Architecture
 
-AgentPacks organizes intelligence into **8 Master Domain Hubs** and **6 Workflow Strike Teams**:
+AgentPacks reorganizes intelligence into **8 Master Domain Governance Hubs**, **6 Workflow Strike Teams**, and **108 Verified Core Specialist Skills**:
 
-| Command | Category | Active Capabilities Loaded | Directive Footprint | Replaces Raw Stack |
+* **Tier 1 (Master Hubs - `/hub-*`):** Ultra-lean architectural governance directives (~2,500–3,000 tokens) providing continuous baseline oversight without burning prompt context.
+* **Tier 2 (Workflow Strike Teams - `/pack-*`):** Single-surface, pre-compiled sprint workflows (~400–600 tokens) that replace and coordinate 3–4 raw specialist skills (~12,400–14,100 tokens saved).
+* **Tier 3 (Specialist Skills):** 108 deep-domain specialist execution directives loaded strictly on-demand.
+
+### 🎯 Strike Team Catalog
+
+| Command | Category | Capabilities Loaded | Directive Footprint | Replaces Raw Stack |
 | :--- | :--- | :--- | :--- | :--- |
-| `npx awesome-agent-packs add hub-design` | **Master UI/UX** | Apple HIG + Concentric Radii + Anti-Slop Palette + Tabular Numerals | **~2,840 Tok** | Governance |
-| `npx awesome-agent-packs add hub-motion` | **Physics Motion** | Critically Damped Springs + Sub-300ms Durations + Framer / GSAP | **~2,910 Tok** | Governance |
-| `npx awesome-agent-packs add hub-web` | **Next.js & React** | App Router + RSC Leaf Boundaries + Waterfall-Free Fetching | **~2,750 Tok** | Governance |
-| `npx awesome-agent-packs add hub-mobile` | **React Native & Expo** | FlashList 120fps + Reanimated UI Worklets + Apple HIG Primitives | **~3,050 Tok** | Governance |
-| `npx awesome-agent-packs add apple-fluid` | **Strike Team** | Touch-down deflection (`scale(0.97)`) + Drag Sheets + Spring Physics | **~512 Tok** | **~12,410 Tok** |
-| `npx awesome-agent-packs add landing-page` | **Strike Team** | Awwwards Bento Grids + Concentric Double-Bezels + Layout Variance | **~599 Tok** | **~13,800 Tok** |
-| `npx awesome-agent-packs add cloud-deploy` | **Strike Team** | Multi-Stage Rootless Docker + Sub-3m GitHub Actions + Terraform | **~450 Tok** | **~14,100 Tok** |
-| `npx awesome-agent-packs add nextjs-perf` | **Strike Team** | RSC Streaming + Bundle Optimization + Compound Components | **~475 Tok** | **~13,200 Tok** |
+| `npx awesome-agent-packs add apple-fluid` | **Strike Team** | Touch-down deflection (`active:scale-[0.97]`) + Sheets + Spring Physics ($\zeta=1.0$) | **~512 Tok** | **~12,410 Tok** (96% savings) |
+| `npx awesome-agent-packs add landing-page` | **Strike Team** | Awwwards Bento Grids + Double-Bezels + Layout Variance | **~599 Tok** | **~13,800 Tok** (95% savings) |
+| `npx awesome-agent-packs add cloud-deploy` | **Strike Team** | Multi-Stage Rootless Docker + Sub-3m CI/CD GitHub Actions + Terraform | **~450 Tok** | **~14,100 Tok** (97% savings) |
+| `npx awesome-agent-packs add nextjs-perf` | **Strike Team** | RSC Streaming + Leaf Component Bounds + Compound Patterns | **~475 Tok** | **~13,200 Tok** (96% savings) |
+| `npx awesome-agent-packs add expo-mobile` | **Strike Team** | FlashList 120fps + Reanimated v3 UI Worklets + NativeWind v4 | **~429 Tok** | **~12,900 Tok** (97% savings) |
+| `npx awesome-agent-packs add saas-video` | **Strike Team** | Remotion 30-45s Product Reels + Audio Ducking + Kinetic Captions | **~412 Tok** | **~13,500 Tok** (97% savings) |
+
+### 🏛️ Master Domain Governance Hubs
+
+| Command | Domain | Synthesized Specialists | Core Architectural Invariants |
+| :--- | :--- | :--- | :--- |
+| `npx awesome-agent-packs add hub-design` | **UI/UX & Craft** | `apple-design`, `high-end-visual-design`, `make-interfaces-feel-better` | Concentric radii ($R_o=R_i+P$), `tabular-nums`, tactile press feedback |
+| `npx awesome-agent-packs add hub-motion` | **Physics Motion** | `spring-physics`, `framer-motion`, `gsap`, `ftb-gsap-scrolltrigger` | Critical damping ($\zeta=1.0$), sub-250ms transitions, GPU transform isolation |
+| `npx awesome-agent-packs add hub-web` | **Next.js & React** | `nextjs-app-router-patterns`, `vercel-react-best-practices` | Leaf client components, zero waterfalls via `Promise.all()`, Suspense boundaries |
+| `npx awesome-agent-packs add hub-mobile` | **React Native** | `expo-native-ui`, `react-native-performance`, `react-native-reusables` | FlashList virtualization, Reanimated UI thread worklets, Apple HIG materials |
+| `npx awesome-agent-packs add hub-3d` | **Three.js & WebGL** | `threejs`, `cobejs`, `ftb-react-three-fiber`, `globe-gl` | Explicit WebGL buffer disposal on unmount, DPR clamped $\le 2.0$, canvas singleton |
+| `npx awesome-agent-packs add hub-video` | **Remotion Video** | `promo-video`, `remotion-best-practices`, `remotion-captions` | Frame-locked timing `spring({ frame, fps })`, automated audio ducking (-70%) |
+| `npx awesome-agent-packs add hub-cloud` | **Cloud & DevOps** | `senior-devops`, `infra-engineer`, `github-actions`, `terraform` | Multi-stage rootless Docker builds (`USER node`), sub-3m CI cache, OIDC auth |
+| `npx awesome-agent-packs add hub-backend` | **Databases & Data** | `system-design`, `supabase`, `supabase-postgres-best-practices` | Single-turn CTE queries (P50 < 2ms), tenant RLS isolation, nested `SAVEPOINT` safety |
 
 ---
 
@@ -76,15 +103,16 @@ npx awesome-agent-packs add nextjs-perf
 npx awesome-agent-packs add cloud-deploy
 ```
 
-### 2. Auto-Detect Multi-Platform Setup
-AgentPacks automatically inspects your machine and creates atomic projections for your tools:
-* 🤖 **Claude Code** (`CLAUDE.md` table reconciliation & `~/.claude/skills/`)
-* ⚡ **OpenCode** (`~/.config/opencode/skills/`)
-* 🛠 **Agent Standard** (`~/.agents/skills/`)
-* 🎯 **Cursor** (`.cursor/rules/*.mdc` with valid frontmatter)
-* 🌊 **Windsurf** (`.windsurfrules` delimited blocks)
+### 2. Multi-Platform Auto-Projection
+AgentPacks inspects your environment and creates format-compliant projections:
 
-### 3. Check for Prompt Inconsistencies
+* 🤖 **Claude Code:** Reconciles an anchored table in `CLAUDE.md` and links to `~/.claude/skills/`. Triggers via `/apple-fluid` or `/pack-apple-fluid`.
+* 🎯 **Cursor AI:** Automatically synthesizes `<workspace>/.cursor/rules/*.mdc` with valid YAML frontmatter (`description`, `globs`, `alwaysApply: false`).
+* ⚡ **OpenCode CLI:** Provisions atomic directory symlinks in `~/.config/opencode/skills/`.
+* 🛠 **Agent Standard:** Provisions symlinks in canonical `~/.agents/skills/`.
+* 🌊 **Windsurf:** Injects delimited rule blocks into `<workspace>/.windsurfrules`.
+
+### 3. Check for Rule Inconsistencies
 ```bash
 npx awesome-agent-packs lint
 ```
@@ -99,7 +127,7 @@ npx awesome-agent-packs lint
 💡 Tip: Run npx awesome-agent-packs lint --fix to automatically install harmonizing hubs.
 ```
 
-### 4. Inspect Token Budget (Deterministic BPE Profiler)
+### 4. Inspect Token Budget (Deterministic BPE Profiler via `js-tiktoken`)
 ```bash
 npx awesome-agent-packs budget
 ```
@@ -112,118 +140,42 @@ Context Consumption Analysis:
 ✔ Healthy Runtime Architecture: Skills load on-demand, preserving 98%+ context window for reasoning.
 ```
 
----
-
-## 🛠 Catalog: The 8 Master Hubs
-
-<details>
-<summary><b>1. /hub-design (UI/UX, Visual Craft & System Design)</b></summary>
-
-Unified design architecture synthesizing the collective craft of Apple Human Interface Guidelines, Emil Kowalski design engineering, and anti-slop frontend principles.
-* **Concentric Border Radius:** Outer Radius = Inner Radius + Padding ($R_{outer} = R_{inner} + padding$).
-* **Tactile Press Feedback:** Every interactive button deflects on pointer-down: `active:scale-[0.97]` with `transition: transform 120ms ease-out`. Never wait for click-up.
-* **Tabular Numbers:** Always apply `tabular-nums` (`font-variant-numeric: tabular-nums`) to counters, financial metrics, and rates.
-* **Anti-Slop Color Discipline:** Never use generic AI purple/blue glowing buttons. Restrict accents to 1 primary brand color (saturation < 80%).
-* **Escalates to:** `apple-design`, `design-taste-frontend`, `high-end-visual-design`, `redesign-existing-projects`.
-</details>
-
-<details>
-<summary><b>2. /hub-motion (Physics, Springs & Animation)</b></summary>
-
-Precision animation rules for web and mobile interfaces.
-* **Critical Damping:** Damping ratio $\zeta = 1.0$ (`bounce: 0, duration: 0.35s`) for zero jitter UI interactions.
-* **Sub-300ms Rule:** Routine UI transitions (menus, buttons, selects) must stay under 250ms.
-* **Hardware Acceleration:** Animate strictly `transform` and `opacity`. Never animate layout properties (`width`, `height`, `top`, `left`).
-* **Escalates to:** `spring-physics`, `framer-motion`, `gsap`, `ftb-gsap-scrolltrigger`.
-</details>
-
-<details>
-<summary><b>3. /hub-3d (Three.js, WebGL & Shaders)</b></summary>
-
-Real-time 3D web graphics with strict performance and memory controls.
-* **Technology Decision Tree:** Cobe (5KB canvas globe) vs CSS 3D (0KB) vs Three.js (150KB) vs R3F (250KB).
-* **Context Disposal:** Mandates recursive geometry, texture, and WebGL buffer disposal on unmount.
-* **DPR Clamping:** Clamps Device Pixel Ratio at $1.5–2.0$ to prevent mobile GPU thermal throttling.
-* **Escalates to:** `threejs`, `ftb-react-three-fiber`, `cobejs`, `build-threejs-scroll-worlds`.
-</details>
-
-<details>
-<summary><b>4. /hub-web (Next.js 14/15, React 19 & Vercel)</b></summary>
-
-Zero-waterfall full-stack React architecture.
-* **Server Components by Default:** Push `'use client'` down exclusively to interactive leaf nodes.
-* **Zero Waterfalls:** Concurrent data streaming via `Promise.all()` and isolated `<Suspense>` boundaries.
-* **Compound Component Architecture:** Ban boolean prop explosion (`isModal`, `hasIcon`) in favor of composable subcomponents.
-* **Escalates to:** `nextjs-app-router-patterns`, `vercel-composition-patterns`, `vercel-react-best-practices`.
-</details>
-
-<details>
-<summary><b>5. /hub-mobile (React Native & Expo Ecosystem)</b></summary>
-
-60fps/120fps production mobile engineering.
-* **Virtualization:** Mandates Shopify FlashList with `estimatedItemSize` over unbounded `ScrollView`.
-* **UI Thread Isolation:** Pure Reanimated v3 worklets without JS bridge crossing.
-* **Apple HIG Materials:** Platform semantic colors and translucent blur materials (`PlatformColor`, `expo-blur`).
-* **Escalates to:** `expo-native-ui`, `react-native-performance`, `react-native-reusables`.
-</details>
-
-<details>
-<summary><b>6. /hub-video (Remotion & Programmatic Video)</b></summary>
-
-Automated 20–45s product reels and dynamic marketing video rendering.
-* **Frame-Based Timing:** Never use `setTimeout` or CSS transitions. Pacing tied strictly to `useCurrentFrame()`.
-* **Remotion Springs:** Native `spring({ frame, fps, config })` synchronization.
-* **Audio Ducking:** Automated background music volume ducking (-70%) during active speech intervals.
-* **Escalates to:** `saas-product-demo-video`, `promo-video`, `remotion-best-practices`.
-</details>
-
-<details>
-<summary><b>7. /hub-cloud (DevOps, CI/CD & Multi-Cloud)</b></summary>
-
-Hardened infrastructure and automated pipelines.
-* **Container Security:** Multi-stage rootless Docker builds with non-root service users (`USER node`).
-* **Sub-3min CI Builds:** Layer caching with Docker buildx and GitHub Actions cache.
-* **OIDC Authentication:** Dynamic IAM role assumption without static cloud credentials.
-* **Escalates to:** `senior-devops`, `infra-engineer`, `github-actions`, `terraform-module-library`.
-</details>
-
-<details>
-<summary><b>8. /hub-backend (Databases & Distributed Systems)</b></summary>
-
-PostgreSQL optimization, distributed caching, and transactional safety.
-* **Typed Enums:** Replace fragile string columns with native PostgreSQL enums (`Role`, `Status`).
-* **Query Latency:** Single-turn CTE query optimization hitting in-memory RAM buffer caches.
-* **Transaction Hygiene:** Run speculative operations in nested `SAVEPOINT` sub-transactions.
-* **Escalates to:** `system-design`, `supabase`, `supabase-postgres-best-practices`.
-</details>
-
----
-
-## 🏢 Enterprise Team Registries
-
-Keep your engineering team's AI coding rules, internal APIs, and design tokens synchronized across all developer laptops:
-
+### 5. Validate Environment & Repair Broken Symlinks
 ```bash
-# Sync company design tokens, internal APIs, and coding guidelines
-npx awesome-agent-packs sync --team=mycompany
+npx awesome-agent-packs doctor --fix
 ```
 
-### Team Configuration (`agentpack.config.json`):
-```json
-{
-  "$schema": "https://agentpacks.dev/schema/v1/config.json",
-  "team": "acme-corp",
-  "enforcedHubs": [
-    "hub-design",
-    "hub-web",
-    "hub-cloud"
-  ],
-  "tokenBudgetCap": 16000,
-  "prohibitedSkills": [
-    "minimalist-ui"
-  ]
-}
-```
+---
+
+## 🛡️ Built-in Security & Determinism
+
+1. **Static Prompt Taint Scanner (`security.ts`):**  
+   Every directive is inspected before installation for shell exfiltration (`curl | bash`, `wget | sh`), credential theft (`cat ~/.ssh/id_*`, `.env`, `.aws/credentials`), destructive commands (`rm -rf /`), and prompt jailbreaks (`ignore previous instructions`, `you are now DAN`).
+
+2. **Deterministic Cryptographic Lockfile (`agentpack.lock.json`):**  
+   Tracks installed versions, SHA-256 integrity hashes, BPE token counts, and platform projection targets. Automatically generated and pruned on `add` and `remove`.
+
+3. **Workspace Policy Sync (`agentpack.config.json`):**  
+   Enforce company design tokens and mandatory Master Hubs across team members with:
+   ```bash
+   npx awesome-agent-packs sync --team=mycompany
+   ```
+
+---
+
+## 💻 Complete CLI Command Matrix
+
+| Command | Description | Example |
+| :--- | :--- | :--- |
+| `add <target>` | Install a hub, pack, or skill with security checks | `npx awesome-agent-packs add apple-fluid` |
+| `remove <target>` | Cleanly un-project from all platforms and update lockfile | `npx awesome-agent-packs remove apple-fluid` |
+| `list` | View active directives, BPE sizes, and token savings | `npx awesome-agent-packs list` (or `--json`) |
+| `budget` | Profile Turn-0 overhead vs Peak single-invocation load | `npx awesome-agent-packs budget --model=gpt-4o` |
+| `lint` | Detect clashing directives and auto-fix via Master Hubs | `npx awesome-agent-packs lint --fix` |
+| `search [query]` | Search through 122 verified catalog items | `npx awesome-agent-packs search motion` |
+| `init` | Scaffold `agentpack.config.json` and `agentpack.lock.json` | `npx awesome-agent-packs init` |
+| `sync` | Enforce organization baseline hubs from config | `npx awesome-agent-packs sync` |
+| `doctor` | Diagnose agent directories and prune broken symlinks | `npx awesome-agent-packs doctor --fix` |
 
 ---
 
@@ -239,12 +191,12 @@ git clone https://github.com/Ali-Ch-001/awesome-agent-packs.git
 pnpm install
 pnpm build
 
-# Run CLI locally
-node packages/cli/bin/run.js --help
+# Run unit tests
+pnpm test
 ```
 
 ---
 
-## License
+## 📄 License
 
-MIT © Ali Mohsin and AgentPacks Contributors.
+MIT © [Ali Mohsin](https://github.com/Ali-Ch-001) and Awesome AgentPacks Contributors.
