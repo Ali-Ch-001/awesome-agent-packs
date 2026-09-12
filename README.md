@@ -3,8 +3,6 @@
 
 [![npm version](https://img.shields.io/npm/v/agent-packs.svg?style=flat-square&color=black)](https://www.npmjs.com/package/agent-packs)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
-[![Discord](https://img.shields.io/badge/Discord-Join%20Community-7289da?style=flat-square)](https://discord.gg/agentpacks)
-[![Twitter Follow](https://img.shields.io/twitter/follow/agentpacks?style=social)](https://x.com/agentpacks)
 
 > **"Homebrew / npm, but for Claude Code, OpenCode, Cursor, and Windsurf."**  
 > Install battle-tested, conflict-free domain intelligence with a single zero-dependency command.
