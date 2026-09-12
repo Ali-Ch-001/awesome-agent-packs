@@ -122,19 +122,22 @@ export async function unprojectSkillFromPlatform(
     if (platform.id === "claude") {
       const targetDir = isGlobal ? platform.globalSkillsDir : (platform.projectRulesDir || platform.globalSkillsDir);
       const skillPath = path.join(targetDir, skillId);
-      let removed = false;
+      let removedDir = false;
 
       if (fs.existsSync(skillPath)) {
         removeSymlinkOrDir(skillPath);
-        removed = true;
+        removedDir = true;
       }
 
       const claudeMdPath = isGlobal
         ? path.join(os.homedir(), ".claude", "CLAUDE.md")
         : path.join(projectRoot, "CLAUDE.md");
 
-      removeClaudeMdEntry(claudeMdPath, skillId);
-      return { removed, path: skillPath };
+      const removedTable = removeClaudeMdEntry(claudeMdPath, skillId);
+      if (removedDir || removedTable) {
+        return { removed: true, path: skillPath };
+      }
+      return { removed: false };
     }
 
     if (platform.id === "cursor") {
@@ -149,8 +152,10 @@ export async function unprojectSkillFromPlatform(
     if (platform.id === "windsurf") {
       const windsurfRulesPath = path.join(projectRoot, ".windsurfrules");
       if (fs.existsSync(windsurfRulesPath)) {
-        removeWindsurfEntry(windsurfRulesPath, skillId);
-        return { removed: true, path: windsurfRulesPath };
+        const didRemove = removeWindsurfEntry(windsurfRulesPath, skillId);
+        if (didRemove) {
+          return { removed: true, path: windsurfRulesPath };
+        }
       }
       return { removed: false };
     }
@@ -249,30 +254,35 @@ export function updateClaudeMd(claudeMdPath: string, item: RegistryItem) {
   }
 }
 
-export function removeClaudeMdEntry(claudeMdPath: string, skillId: string) {
-  if (!fs.existsSync(claudeMdPath)) return;
+export function removeClaudeMdEntry(claudeMdPath: string, skillId: string): boolean {
+  if (!fs.existsSync(claudeMdPath)) return false;
   const content = fs.readFileSync(claudeMdPath, "utf-8");
-  if (!content.includes(CLAUDE_BLOCK_START)) return;
+  if (!content.includes(CLAUDE_BLOCK_START)) return false;
 
   const startIndex = content.indexOf(CLAUDE_BLOCK_START);
   const endIndex = content.indexOf(CLAUDE_BLOCK_END);
-  if (startIndex === -1 || endIndex === -1) return;
+  if (startIndex === -1 || endIndex === -1) return false;
 
   const before = content.slice(0, startIndex);
   const blockContent = content.slice(startIndex + CLAUDE_BLOCK_START.length, endIndex);
   const after = content.slice(endIndex + CLAUDE_BLOCK_END.length);
 
   const lines = blockContent.split("\n");
+  const hadEntry = lines.some((l) => l.includes(`\`/${skillId}\``));
+  if (!hadEntry) return false;
+
   const filteredLines = lines.filter((l) => !l.includes(`\`/${skillId}\``));
   const remainingRows = filteredLines.filter((l) => l.startsWith("| `"));
 
   if (remainingRows.length === 0) {
     // No more skills in CLAUDE.md block, clean up block completely
-    fs.writeFileSync(claudeMdPath, (before.trim() + "\n\n" + after.trim()).trim() + "\n", "utf-8");
+    const remainingContent = (before.trim() + "\n\n" + after.trim()).trim();
+    fs.writeFileSync(claudeMdPath, remainingContent ? remainingContent + "\n" : "", "utf-8");
   } else {
     const updatedBlock = `${CLAUDE_BLOCK_START}${filteredLines.join("\n")}${CLAUDE_BLOCK_END}`;
     fs.writeFileSync(claudeMdPath, (before + updatedBlock + after).trim() + "\n", "utf-8");
   }
+  return true;
 }
 
 export function updateWindsurfrules(rulesPath: string, item: RegistryItem) {
@@ -301,15 +311,17 @@ export function updateWindsurfrules(rulesPath: string, item: RegistryItem) {
   fs.writeFileSync(rulesPath, content, "utf-8");
 }
 
-export function removeWindsurfEntry(rulesPath: string, skillId: string) {
-  if (!fs.existsSync(rulesPath)) return;
+export function removeWindsurfEntry(rulesPath: string, skillId: string): boolean {
+  if (!fs.existsSync(rulesPath)) return false;
   let content = fs.readFileSync(rulesPath, "utf-8");
   const startMarker = `# --- AGENTPACKS:${skillId}:START ---`;
   const endMarker = `# --- AGENTPACKS:${skillId}:END ---`;
 
   if (content.includes(startMarker)) {
     const regex = new RegExp(`\\n?${startMarker}[\\s\\S]*?${endMarker}\\n?`, "g");
-    content = content.replace(regex, "\n").trim() + "\n";
-    fs.writeFileSync(rulesPath, content, "utf-8");
+    content = content.replace(regex, "\n").trim();
+    fs.writeFileSync(rulesPath, content ? content + "\n" : "", "utf-8");
+    return true;
   }
+  return false;
 }
