@@ -66,6 +66,12 @@ export async function addCommand(
   const activePlatforms = installResult.links
     .filter((l) => l.status === "created" || l.status === "already_linked")
     .map((l) => l.platformId);
+
+  if (installResult.links.length > 0 && activePlatforms.length === 0) {
+    p.cancel(picocolors.red(`Failed to project ${item.name} to any platform. Review permissions and directory paths above.`));
+    process.exit(1);
+  }
+
   updateLockfile(process.cwd(), item, activePlatforms);
 
   // Scan for conflicts across installed platforms

@@ -317,6 +317,18 @@ export function updateClaudeMd(claudeMdPath: string, item: RegistryItem, isGloba
       ].join("\n");
 
       fs.writeFileSync(claudeMdPath, (before.trimEnd() + "\n\n" + updatedBlock + "\n\n" + after.trimStart()).trim() + "\n", "utf-8");
+    } else if (startIndex !== -1 && endIndex === -1) {
+      // Corrupted file with missing END marker: strip lone start marker and re-initialize cleanly
+      const cleaned = content.replace(CLAUDE_BLOCK_START, "").trim();
+      const block = [
+        "",
+        CLAUDE_BLOCK_START,
+        ...headerLines,
+        row,
+        CLAUDE_BLOCK_END,
+        "",
+      ].join("\n");
+      fs.writeFileSync(claudeMdPath, (cleaned + "\n" + block).trim() + "\n", "utf-8");
     }
   }
 }

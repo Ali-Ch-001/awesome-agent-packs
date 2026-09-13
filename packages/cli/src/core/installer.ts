@@ -45,7 +45,9 @@ export async function installRegistryItem(
   let selectedPlatforms = allPlatforms.filter((p) => p.isDetected);
 
   if (options.targetPlatforms && options.targetPlatforms.length > 0) {
-    const targetSet = new Set(options.targetPlatforms.map((t) => t.toLowerCase()));
+    const targetSet = new Set(
+      options.targetPlatforms.flatMap((t) => t.toLowerCase().split(/[,\s]+/)).filter(Boolean)
+    );
     selectedPlatforms = allPlatforms.filter((p) => targetSet.has(p.id.toLowerCase()));
   }
 
