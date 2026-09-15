@@ -3,6 +3,7 @@
 
 [![npm version](https://img.shields.io/npm/v/awesome-agent-packs.svg?style=flat-square&color=black)](https://www.npmjs.com/package/awesome-agent-packs)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
+[![Sponsor](https://img.shields.io/badge/Sponsor-Polar.sh-ff5a5f.svg?style=flat-square&logo=polar&logoColor=white)](https://buy.polar.sh/polar_cl_Daba3yPHh6lSxkAEIurpL3KJdtAFLlgFocBdd2WBeUX)
 
 > **"Homebrew / npm, but for Claude Code, OpenCode, Cursor, and Windsurf."**  
 > Install battle-tested, conflict-free domain intelligence with a single zero-dependency command.
