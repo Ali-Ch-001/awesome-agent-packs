@@ -9,7 +9,7 @@
   <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-5.7-blue.svg?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript"></a>
   <a href="https://nodejs.org/"><img src="https://img.shields.io/badge/Node.js-%3E%3D20-339933.svg?style=flat-square&logo=node.js&logoColor=white" alt="Node.js Version"></a>
   <a href="https://github.com/Ali-Ch-001/awesome-agent-packs/stargazers"><img src="https://img.shields.io/github/stars/Ali-Ch-001/awesome-agent-packs?style=flat-square&color=yellow" alt="GitHub stars"></a>
-  <a href="https://buy.polar.sh/polar_cl_Daba3yPHh6lSxkAEIurpL3KJdtAFLlgFocBdd2WBeUX"><img src="https://img.shields.io/badge/Sponsor-Polar.sh-ff5a5f.svg?style=flat-square&logo=polar&logoColor=white" alt="Sponsor on Polar"></a>
+  <a href="https://buy.polar.sh/polar_cl_rXgdrUGO3mDHU7qDStt2Oh8oDPxe0PJJt6ByC0s6SCg"><img src="https://img.shields.io/badge/Sponsor-Polar.sh-ff5a5f.svg?style=flat-square&logo=polar&logoColor=white" alt="Sponsor on Polar"></a>
   <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square" alt="PRs Welcome"></a>
 </p>
 
@@ -198,6 +198,13 @@ pnpm build
 # Run unit tests
 pnpm test
 ```
+
+---
+
+## 💖 Support & Sponsor
+
+If AgentPacks saves you context tokens and engineering hours, support ongoing development:  
+👉 **[Sponsor / Purchase on Polar.sh →](https://buy.polar.sh/polar_cl_rXgdrUGO3mDHU7qDStt2Oh8oDPxe0PJJt6ByC0s6SCg)**
 
 ---
 
